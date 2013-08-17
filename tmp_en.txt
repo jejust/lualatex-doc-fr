@@ -53,6 +53,73 @@ Now for the bad news: it is not always easy to get a list of all available fonts
 
 En passant, let's mention that the content of this section so far also holds for XeLaTeX, that is, LaTeX over XeTeX. Indeed, XeTeX shares two of the essential features of LuaTeX: native Unicode and support for modern font formats (but doesn't have the other features of LuaTeX; on the other hand, it is more stable right now). Though their implementations concerning fonts are vastly different, "fontspec" manages to offer a mostly unified font interface for both XeLaTeX and LuaLaTeX.
 
-So, to benefit from the new features of LuaTeX, you must drop a few parts of the old world, namely the fonts that are not available in a modern format (and also the liberty to encode your source how you want, but UTF-8 is so much superior that this one hardly counts). The package "luainputenc" provides various trade-offs that allow you to regain these parts 2 possibly at the expense of loosing real Unicode support.
+So, to benefit from the new features of LuaTeX, you must drop a few parts of the old world, namely the fonts that are not available in a modern format (and also the liberty to encode your source how you want, but UTF-8 is so much superior that this one hardly counts). The package "luainputenc" provides various trade-offs that allow you to regain these parts (while the name suggests it is only about input encodings, the details of LaTeX's font encoding implementation imply this package is needed (and works) for old fonts too), possibly at the expense of loosing real Unicode support.
 
 That's all you need to know to start producing documents with LuaLaTeX. I recommend you have a look at the fontspec manual and actually try to compile a small document using funny fonts. You can then skim over the rest of this document as you wish. Section 5 lists all the other differences between conventional LaTeX and LuaLaTeX that I'm aware of.
+
+############################################################
+
+1.3 A Lua-in-TeX primer
+
+Lua is a nice, small language, obviously less surprising and much easier to learn than TeX as a programming language. The essential reference is the very readable book Programming in Lua, whose first edition is freely available online. For a quick start, I recommend you read chapters 1 to 5 and have a quick glance at part 3. Note that all the libraries mentioned in chapter 3 are included in LuaTeX, but the "os" library is restricted for security reasons.
+
+Depending on your programming culture, you may be directly interested in the rest of part 1 and part 2 which present more advanced features of the language, but part 4 is useless in a LuaTeX context, unless of course you want to hack LuaTeX itself. Finally, the Lua reference manual is available online and comes with a handy index. Now, let's turn to Lua in LuaTeX. The main way to execute Lua code from the TeX end is the "\directlua" command, which takes arbitrary Lua code as an argument. Conversely, you can pass information from Lua to TeX with tex.sprint (The name probably means estring print'' as opposed to "run very fast for a short period of time.''). For example,
+
+"the standard approximation $\pi = \directlua{tex.sprint(math.pi)}$"
+
+prints "the standard approximation \u03c0 = 3.1415926535898 '' in your document. See how easy it is to mix TeX and Lua?
+
+Actually, there are a few gotchas. Let's look at the Lua to TeX way first, it's the simplest (since it's more Lua than TeX). If you look at the LuaTeX manual, you'll see there is another function with a simpler name, "tex.print", to pass information this way. It works by virtually inserting a full line into your TeX source, whose contents are its argument. In case you didn't know, TeX does many nasty (Okay, these are usually nice and helpful actions, but in this case they are most probably unexpected so I call them nasty.) things with full lines of the source: ignoring spaces at the beginning and end of line and appending an end-of-line character. Most of the time, you don't want this to happen, so I recommend using "tex.sprint" which virtually inserts its argument in the current line, so is much more predictable.
+
+If you're enough of a TeXnician to know about catcodes, you'll be happy to know that "tex.print" and its variants give you nearly full control over the catcodes used for tokenizing the argument, since you can specify a catcode table as the first argument. You'll probably want to learn about catcode tables (currently 2.7.6 in the LuaTeX manual) before you're fully happy. If you don't know about catcodes, just skip this paragraph. (Erf, too late, you already read it.)
+
+Let's look at "\directlua" now. To get an idea about how it works, imagine that it's a "\write" command, but it writes only to a virtual file and immediately arranges for this file to be fed to the Lua interpreter. On the Lua end, the consequence is that each argument of a "\directlua" command has its own scope: local variables from one will not be visible to the other. (Which is rather sane, but always good to know.)
+
+Now, the major gotcha is that before being fed to the Lua interpreter, the argument is first read and tokenised by TeX, then fully expanded and turned back into a plain string. Being read by TeX has several consequences. One of them is that end of lines are turned into spaces, so the Lua interpreter sees only one (long) line of input. Since Lua is a free-form language, it doesn't usually matter, but it does if you use comments:
+
+\directlua{a_function()
+-- a comment
+another_function()}
+
+won't do what you probably expect: another_function() will be seen as part of the comment (it's only one line, remember).
+
+Another consequence of being read by TeX is that successive spaces are merged into one space, and TeX comments are discarded. So, here is a surprisingly correct version of the previous example.
+
+\directlua{a_function()
+% a comment
+another_function()}
+
+It is also worth noticing that, since the argument basically is inside a "\write", it's in expansion-only context. If you don't know what it means, let me say that expansion issues are mostly what makes TeX programming so difficult to avoid expanding further on that matter.
+
+I'm sorry if the last three paragraphs were a bit TeXnical in nature but I thought you had to know. To reward you for staying with me, here is a debugging trick. Put the following code near the beginning of your document:
+
+\newwrite\luadebug
+\immediate\openout\luadebug luadebug.lua
+\AtEndDocument{\immediate\closeout\luadebug}
+\newcommand\directluadebug{\immediate\write\luadebug}
+
+Then, when you have a hard time understanding why a particular call to "\directlua" doesn't do what you expect, replace this instance of the command with "\directluadebug", compile as usual and look in the file luadebug.lua produced what the Lua interpreter actually read.
+
+The luacode package provides commands and environments that help to varying degrees with some of these problems. However, for everything but trivial pieces of Lua code, it is wiser to use an external file containing only Lua code defining functions, then load it and use its functions. For example:
+
+\directlua{dofile("my-lua-functions.lua")}
+\newcommand*{\greatmacro}[2]{%
+\directlua{my_great_function("\luatexluaescapestring{#1}", #2)}}
+
+The example assumes that my_great_function is defined in "my-lua-functions.lua" and takes a  string and a number as arguments. Notice that we carefully use the "\luatexluaescapestring" primitives on the string argument to escape any backslash or double-quote it might contain and which would confuse the Lua parser. (If you ever used SQL then the concept of escaping strings is hopefully not new to you."
+
+That's all concerning Lua in TeX. If you're wondering why "\luatexluaescapestring" has such a long and silly name, you might want to read the next section.
+
+1.4 Other things you should know
+
+Just in case it isn't obvious, the LuaTeX manual, "luatexref-t.pdf", is a great source of information about LuaTeX and you'll probably want to consult it at some point (though it is a bit arid and technical).
+
+It is important to know that the name of the new primitives of LuaTeX as you read them in the manual are not the actual names you'll be able to use in LuaLaTeX. To prevent clashes with existing macro names, all new primitives have been prefixed with "\luatex" unless they already start with it, so "\luaescapestring" becomes "\luatexluaescapetring" while "\luatexversion" remains "\luatexversion". The rationale is detailed in section 4.
+
+Oh, and by the way, did I mention that LuaTeX is in beta and version 1.0 is expected in spring 2014? You can learn more on the roadmap page of the LuaTeX site. Stable betas are released regularly and are included in TeX Live since 2008 and MikTeX since 2.9.
+
+Not surprisingly, support for LuaTeX in LaTeX is shiny new, which means it may be full of (shiny) bugs, and things may change at any point. You might want to keep your TeX distribution very up-to-date 7 and also avoid using LuaLaTeX for critical documents at least for some time.
+
+As a general rule, this guide documents things as they are at the time it is written or updated, without keeping track of changes. Hopefully, you'll update your distribution as a whole so that you always get matching versions of this guide and the packages, formats and engine it describes.
+
+############################################################

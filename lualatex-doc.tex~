@@ -1,19 +1,16 @@
-% lualatex-doc-fr: un guide touristique de LuaLaTeX
+% lualatex-doc: a guide to LuaLaTeX
 %
-% Écrit par Manuel Pégourié-Gonnard <mpg@elzevir.fr>, 2010-2013.
-% Adaptation française: Jérémy Just <jeremy@jejust.fr>, 2014.
+% Written by Manuel Pégourié-Gonnard <mpg@elzevir.fr>, 2010.
 %
 % Distributed under the terms of the GNU free documentation licence:
 %   http://www.gnu.org/licenses/fdl.html
 % without any invariant section or cover text.
 
 \documentclass{lltxdoc}
-  \selectlanguage{french}
 
-\title{Un guide touristique de \lualatex\thanks{Traduit en français par Jérémy Just \email{jeremy@jejust.fr}}}
+\title{A guide to \lualatex}
 \author{Manuel Pégourié-Gonnard \email{mpg@elzevir.fr}}
-%\date{\today}
-\date{5 mai 2013}
+\date{\today}
 
 \begin{document}
 
@@ -309,7 +306,7 @@ with ©\directluadebug©, compile as usual and look in the file
 \file{luadebug.lua} produced what the Lua interpreter actually read.
 
 The \pk{luacode} package provides commands and environments that help to
-varying degrees with some of these problems. However, for everything but
+varying degrees with some of these problems. Hoewever, for everything but
 trivial pieces of Lua code, it is wiser to use an external file containing
 only Lua code defining functions, then load it and use its functions. For
 example:

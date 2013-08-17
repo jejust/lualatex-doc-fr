@@ -1,0 +1,58 @@
+This document is a map, or touristic guide, for the new world of LuaLaTeX. The intended audience ranges from complete newcomers (with a working knowledge of conventional LaTeX) to package developers. This guide is intended to be comprehensive in the following sense: it contains pointers to all relevant sources, gathers information that is otherwise scattered, and adds introductory material.
+
+Feedback and suggestions for improvement are most welcome. This document is work in progress; thanks for your comprehension and patience.
+
+Though focusing on LuaLaTeX, it includes relevant information about LuaTeX with the Plain format, too.
+
+Introduction
+
+Just what is LuaLaTeX?
+
+To answer this question, we need to mention a few details about the TeX world that you may usually ignore: the difference between an engine and a format. An engine is an actual computer program, while a format is a set of macros executed by an engine, usually preloaded when the engine is invoked with a particular name.
+
+Actually, a format is more or less like a document class or a package, except it is associated with a particular command name. Imagine there is a command "latex-article" that would do the same as latex, except you wouldn't need to say "\documentclass{article}" at the beginning of your file. Similarly, in current distributions, the command "pdflatex" is the same as the command "pdftex" except that you don't need to put the instructions to load LaTeX at the beginning of your source file. This is convenient, and slightly more efficient too.
+
+Formats are great because they implement powerful commands using the basic tools an engine provides. However the power of the format is sometimes limited by the engine's tools set, so people started developing more powerful engines so that other people can implement even more powerful formats (or packages). The most famous engines now (except the original TeX) are pdfTeX, XeTeX and LuaTeX.
+
+To further complicate the picture, the original TeX engine produced only DVI files, while its successors may (also) produce PDF file. Each command in your system corresponds to a particular engine with a particular format and a particular output mode. The following table summarizes this: rows are indexed by format, columns by engine, and in each cell the first line is the command for this engine with this format in DVI mode, and the second for the same PDF mode.
+
+We can now answer the title question: LuaLaTeX is the LuaTeX engine with the LaTeX format. Well, this answer isn't very satisfying if you don't know what LuaTeX and LaTeX are.
+
+As you probably know, LaTeX is the general framework in which documents begin with "\documentclass", packages are loaded with "\usepackage", fonts are selected in a clever way (so that you can switch to boldface while preserving italics), pages are build with complicated algorithms including support for headers, footers, footnotes, margin notes, floating material, etc. This mostly doesn't change with LuaLaTeX, but new and more powerful packages are available to make parts of the system work in a better way.
+
+So, what's LuaTeX? Short version: the hottest TeX engine right now! Long version: it is the designated successor of pdfTeX and includes all of its core features: direct generation of PDF files with support for advanced PDF features and micro-typographic enhancements to TeX typographic algorithms. The main new features of LuaTeX are:
+
+1. Native support of Unicode, the modern standard for character classification and encoding, supporting all characters in the world, from English to traditional Chinese through Arabic, including a lot of mathematical (or otherwise specialized) symbols.
+
+2. Inclusion of Lua as an embedded scripting language (see section 1.3 for details).
+
+3. A lot of wonderful Lua libraries, including:
+\u2022 "fontloader", supporting modern font formats such as TrueType and OpenType;
+\u2022 "font", allowing advanced manipulation of the fonts from within the document;
+\u2022 "mplib", an embedded version of the graphic program MetaPost;
+\u2022 "callback", providing hooks into parts of the TeX engine that were previously inaccessible to the programmer;
+\u2022 utility libraries for manipulating images, PDF files, etc.
+
+Some of these features, such as Unicode support, directly impact all documents, while others merely provide tools that package authors will use to provide you with more powerful commands and other enhancements.
+
+1.2 Switching from LaTeX to LuaLaTeX
+
+As the previous section explains, LuaLaTeX is mostly like LaTeX, with a few differences, and more powerful packages and tools available. Here we present an absolute minimum you should know to produce a document with LuaLaTeX, while the rest of the document provides more details about the available packages.
+
+There are only three differences:
+1. Don't load "inputenc", just encode your source in UTF-8.
+2. Don't load "fontenc" nor "textcomp", but load "fontspec" instead.
+3. "babel" works with LuaLaTeX but you can load "polyglossia" instead.
+4. Don't use any package that changes the fonts, but use "fontspec"'s commands instead.
+
+So, you only need to get familiar with "fontspec", which is easy: select the main (serif) font with "\setmainfont", the sans serif font with "\setsansfont" and the mono-spaced (typewriter) font with "\setmonofont". The argument to these commands is the human friendly name of the font, for example "Latin Modern Roman" rather than "ec-lmr10". You probably want to use "\defaultfontfeatures{Ligatures=TeX}" before these commands to keep the usual TeX substitutions (such as --- for an em-dash) working.
+
+The good news is: you can directly access any font on your operating system (in addition to those of your TeX distribution) including TrueType and OpenType fonts and have access to their most advanced features. It means it is now easy to install for use with LuaLaTeX any modern font you may download or purchase from an editor and benefit from their full potential.
+
+Now for the bad news: it is not always easy to get a list of all available fonts. Under Windows with TeX Live, the command-line tool "fc-list" lists them all, but is not very friendly. Under Mac OS X, the Fontbook application lists the fonts of your system, but not those of your TeX distribution. Same with "fc-list" on Linux. More bad news: it is not easy to access your old fonts that way. Happily, more fonts are available in modern formats every day (well, month or year, actually, if you count only good fonts).
+
+En passant, let's mention that the content of this section so far also holds for XeLaTeX, that is, LaTeX over XeTeX. Indeed, XeTeX shares two of the essential features of LuaTeX: native Unicode and support for modern font formats (but doesn't have the other features of LuaTeX; on the other hand, it is more stable right now). Though their implementations concerning fonts are vastly different, "fontspec" manages to offer a mostly unified font interface for both XeLaTeX and LuaLaTeX.
+
+So, to benefit from the new features of LuaTeX, you must drop a few parts of the old world, namely the fonts that are not available in a modern format (and also the liberty to encode your source how you want, but UTF-8 is so much superior that this one hardly counts). The package "luainputenc" provides various trade-offs that allow you to regain these parts 2 possibly at the expense of loosing real Unicode support.
+
+That's all you need to know to start producing documents with LuaLaTeX. I recommend you have a look at the fontspec manual and actually try to compile a small document using funny fonts. You can then skim over the rest of this document as you wish. Section 5 lists all the other differences between conventional LaTeX and LuaLaTeX that I'm aware of.

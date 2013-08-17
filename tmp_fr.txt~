@@ -1,0 +1,58 @@
+Ce document est une carte, ou un guide touristique, du nouveau monde de LuaLaTeX. Le public visé va des nouveaux venus (avec une connaissance pratique de LaTeX conventionnel) aux développeurs de paquets. Ce guide se veut exhaustif dans le sens suivant : il contient des pointeurs vers toutes les sources pertinentes, rassemble des informations qui sont autrement dispersées et ajoute des éléments d'introduction.
+
+Vos commentaires et suggestions d'amélioration sont les bienvenus. Ce document est un travail en cours ; merci de votre compréhension et de votre patience.
+
+Bien que centré sur LuaLaTeX, il inclut également des informations pertinentes sur LuaTeX avec le format Plain.
+
+Introduction
+
+Qu'est-ce que LuaLaTeX ?
+
+Pour répondre à cette question, nous devons mentionner quelques détails sur le monde TeX que vous pouvez habituellement ignorer : la différence entre un moteur et un format. Un moteur est un programme informatique réel, tandis qu'un format est un ensemble de macros exécutées par un moteur, généralement préchargé lorsque le moteur est invoqué avec un nom particulier.
+
+En fait, un format est plus ou moins comme une classe de document ou un paquetage, sauf qu'il est associé à un nom de commande particulier. Imaginez qu'il existe une commande "latex-article" qui ferait la même chose que latex, sauf que vous n'auriez pas besoin de dire "\documentclass{article}" au début de votre fichier. De même, dans les distributions actuelles, la commande "pdflatex" est la même que la commande "pdftex", sauf que vous n'avez pas besoin de mettre les instructions pour charger LaTeX au début de votre fichier source. C'est pratique, et légèrement plus efficace aussi.
+
+Les formats sont excellents car ils permettent d'implémenter des commandes puissantes en utilisant les outils de base fournis par un moteur. Cependant, la puissance du format est parfois limitée par l'ensemble des outils du moteur, c'est pourquoi les gens ont commencé à développer des moteurs plus puissants afin que d'autres personnes puissent mettre en \u0153uvre des formats (ou des paquets) encore plus puissants. Les moteurs les plus connus actuellement (à l'exception du TeX original) sont pdfTeX, XeTeX et LuaTeX.
+
+Pour compliquer encore le tableau, le moteur TeX original ne produisait que des fichiers DVI, alors que ses successeurs peuvent (aussi) produire des fichiers PDF. Chaque commande de votre système correspond à un moteur particulier, avec un format particulier et un mode de sortie particulier. Le tableau suivant résume cela : les lignes sont indexées par format, les colonnes par moteur, et dans chaque cellule, la première ligne est la commande pour ce moteur avec ce format en mode DVI, et la seconde pour le même mode PDF.
+
+Nous pouvons maintenant répondre à la question du titre : LuaLaTeX est le moteur LuaTeX avec le format LaTeX. Cette réponse n'est pas très satisfaisante si vous ne savez pas ce que sont LuaTeX et LaTeX.
+
+Comme vous le savez probablement, LaTeX est le cadre général dans lequel les documents commencent par "\documentclass", les paquets sont chargés par "\usepackage", les polices sont sélectionnées de manière intelligente (de sorte que vous puissiez passer en gras tout en préservant l'italique), les pages sont construites à l'aide d'algorithmes compliqués comprenant la prise en charge des en-têtes, des pieds de page, des notes de bas de page, des notes de marge, du matériel flottant, etc. Tout cela ne change pas avec LuaLaTeX, mais de nouveaux paquets plus puissants sont disponibles pour améliorer le fonctionnement de certaines parties du système.
+
+Alors, qu'est-ce que LuaTeX ? Version courte : le moteur TeX le plus populaire du moment ! Version longue : c'est le successeur désigné de pdfTeX et il inclut toutes ses fonctionnalités principales : génération directe de fichiers PDF avec support des fonctionnalités PDF avancées et améliorations micro-typographiques des algorithmes typographiques TeX. Les principales nouveautés de LuaTeX sont :
+
+1. Support natif d'Unicode, la norme moderne de classification et d'encodage des caractères, supportant tous les caractères du monde, de l'anglais au chinois traditionnel en passant par l'arabe, y compris de nombreux symboles mathématiques (ou autrement spécialisés).
+
+2. Inclusion de Lua comme langage de script intégré (voir section 1.3 pour plus de détails).
+
+3. Un grand nombre de bibliothèques Lua merveilleuses, y compris :
+- "fontloader", supportant les formats de polices modernes tels que TrueType et OpenType ;
+- "font", permettant une manipulation avancée des polices à partir du document ;
+- "mplib", une version intégrée du programme graphique MetaPost ;
+- "callback", qui permet d'accéder à des parties du moteur TeX qui étaient auparavant inaccessibles au programmeur ;
+- des bibliothèques utilitaires pour la manipulation d'images, de fichiers PDF, etc.
+
+Certaines de ces fonctionnalités, comme le support de l'Unicode, ont un impact direct sur tous les documents, tandis que d'autres fournissent simplement des outils que les auteurs de paquets utiliseront pour vous fournir des commandes plus puissantes et d'autres améliorations.
+
+1.2 Passage de LaTeX à LuaLaTeX
+
+Comme l'explique la section précédente, LuaLaTeX est en grande partie comme LaTeX, avec quelques différences, et des paquets et outils plus puissants disponibles. Nous présentons ici le minimum absolu que vous devez savoir pour produire un document avec LuaLaTeX, tandis que le reste du document fournit plus de détails sur les paquets disponibles.
+
+Il n'y a que trois différences :
+1. Ne chargez pas "inputenc", encodez simplement votre source en UTF-8.
+2. Ne chargez pas "fontenc" ni "textcomp", mais chargez "fontspec" à la place. 3.
+3. "babel" fonctionne avec LuaLaTeX mais vous pouvez charger "polyglossia" à la place.
+4. N'utilisez pas de paquet qui change les polices, mais utilisez les commandes de "fontspec" à la place.
+
+Ainsi, vous n'avez qu'à vous familiariser avec "fontspec", ce qui est facile : sélectionnez la police principale (avec empattement) avec "\setmainfont", la police sans empattement avec "\setsansfont" et la police mono-espacée (machine à écrire) avec "\setmonofont". L'argument de ces commandes est le nom convivial de la police, par exemple "Latin Modern Roman" plutôt que "ec-lmr10". Vous voudrez probablement utiliser "\defaultfontfeatures{Ligatures=TeX}" avant ces commandes pour que les substitutions TeX habituelles (comme --- pour un em-dash) fonctionnent.
+
+La bonne nouvelle est que vous pouvez accéder directement à n'importe quelle police de votre système d'exploitation (en plus de celles de votre distribution TeX), y compris les polices TrueType et OpenType, et avoir accès à leurs fonctionnalités les plus avancées. Cela signifie qu'il est désormais facile d'installer pour les utiliser avec LuaLaTeX n'importe quelle police moderne que vous pouvez télécharger ou acheter auprès d'un éditeur et de bénéficier de tout leur potentiel.
+
+Passons maintenant aux mauvaises nouvelles : il n'est pas toujours facile d'obtenir une liste de toutes les polices disponibles. Sous Windows avec TeX Live, l'outil de ligne de commande "fc-list" les liste toutes, mais n'est pas très convivial. Sous Mac OS X, l'application Fontbook liste les polices de votre système, mais pas celles de votre distribution TeX. Même chose avec "fc-list" sous Linux. Autre mauvaise nouvelle : il n'est pas facile d'accéder à vos anciennes polices de cette manière. Heureusement, de plus en plus de polices sont disponibles dans des formats modernes chaque jour (enfin, chaque mois ou année, en fait, si on ne compte que les bonnes polices).
+
+En passant, mentionnons que le contenu de cette section jusqu'à présent vaut aussi pour XeLaTeX, c'est-à-dire LaTeX sur XeTeX. En effet, XeTeX partage deux des caractéristiques essentielles de LuaTeX : l'Unicode natif et le support des formats de polices modernes (mais n'a pas les autres caractéristiques de LuaTeX ; d'un autre côté, il est plus stable actuellement). Bien que leurs implémentations concernant les polices soient très différentes, "fontspec" parvient à offrir une interface de polices pratiquement unifiée pour XeLaTeX et LuaLaTeX.
+
+Ainsi, pour bénéficier des nouvelles fonctionnalités de LuaTeX, vous devez abandonner quelques éléments de l'ancien monde, à savoir les polices qui ne sont pas disponibles dans un format moderne (et aussi la liberté d'encoder votre source comme vous le souhaitez, mais UTF-8 est tellement supérieur que cela compte à peine). Le paquet "luainputenc" fournit divers compromis qui vous permettent de récupérer ces parties 2 éventuellement au prix de la perte du support réel de l'Unicode.
+
+C'est tout ce que vous devez savoir pour commencer à produire des documents avec LuaLaTeX. Je vous recommande de jeter un coup d'oeil au manuel fontspec et d'essayer de compiler un petit document en utilisant des polices amusantes. Vous pourrez ensuite parcourir le reste de ce document comme bon vous semble. La section 5 liste toutes les autres différences entre LaTeX conventionnel et LuaLaTeX que je connais.
