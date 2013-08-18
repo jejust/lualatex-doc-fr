@@ -2,8 +2,11 @@
 .#*
 
 *.aux
+*.fls
 *.nav
 *.snm
 *.tns
 *.toc
 *.vrb
+
+*.fdb_latexmk

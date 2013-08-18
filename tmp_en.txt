@@ -63,7 +63,9 @@ That's all you need to know to start producing documents with LuaLaTeX. I recomm
 
 Lua is a nice, small language, obviously less surprising and much easier to learn than TeX as a programming language. The essential reference is the very readable book Programming in Lua, whose first edition is freely available online. For a quick start, I recommend you read chapters 1 to 5 and have a quick glance at part 3. Note that all the libraries mentioned in chapter 3 are included in LuaTeX, but the "os" library is restricted for security reasons.
 
-Depending on your programming culture, you may be directly interested in the rest of part 1 and part 2 which present more advanced features of the language, but part 4 is useless in a LuaTeX context, unless of course you want to hack LuaTeX itself. Finally, the Lua reference manual is available online and comes with a handy index. Now, let's turn to Lua in LuaTeX. The main way to execute Lua code from the TeX end is the "\directlua" command, which takes arbitrary Lua code as an argument. Conversely, you can pass information from Lua to TeX with tex.sprint (The name probably means estring print'' as opposed to "run very fast for a short period of time.''). For example,
+Depending on your programming culture, you may be directly interested in the rest of part 1 and part 2 which present more advanced features of the language, but part 4 is useless in a LuaTeX context, unless of course you want to hack LuaTeX itself. Finally, the Lua reference manual is available online and comes with a handy index.
+
+Now, let's turn to Lua in LuaTeX. The main way to execute Lua code from the TeX end is the "\directlua" command, which takes arbitrary Lua code as an argument. Conversely, you can pass information from Lua to TeX with "tex.sprint" (The name probably means estring print'' as opposed to "run very fast for a short period of time.''). For example,
 
 "the standard approximation $\pi = \directlua{tex.sprint(math.pi)}$"
 
