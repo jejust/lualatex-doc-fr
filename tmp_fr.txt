@@ -1,39 +1,39 @@
-Ce document est une carte, ou un guide touristique, du nouveau monde de LuaLaTeX. Le public visé va des nouveaux venus (avec une connaissance pratique de LaTeX conventionnel) aux développeurs de paquets. Ce guide se veut exhaustif dans le sens suivant: il contient des pointeurs vers toutes les sources pertinentes, rassemble des informations qui sont autrement dispersées et ajoute des éléments d'introduction.
+Ce document se veut être un guide touristique du nouveau monde de LuaLaTeX. Le public visé va des nouveaux venus (ayant une connaissance pratique du LaTeX conventionnel) aux développeurs de packages. Ce guide se veut exhaustif dans le sens suivant: il contient des pointeurs vers toutes les sources pertinentes, rassemble des informations qui sont autrement dispersées et ajoute des éléments d'introduction.
 
-Vos commentaires et suggestions d'amélioration sont les bienvenus. Ce document est un travail en cours ; merci de votre compréhension et de votre patience.
+Vos commentaires et suggestions d'améliorations sont les bienvenus. Ce document est un travail en cours; merci pourr votre bienveillance et votre patience.
 
-Bien que centré sur LuaLaTeX, il inclut également des informations pertinentes sur LuaTeX avec le format Plain.
+Bien que centré sur LuaLaTeX, il inclut également des informations utiles sur LuaTeX utilisé avec le format Plain.
 
 Introduction
 
 Qu'est-ce que LuaLaTeX ?
 
-Pour répondre à cette question, nous devons mentionner quelques détails sur le monde TeX que vous pouvez habituellement ignorer: la différence entre un moteur et un format. Un moteur est un programme informatique réel, tandis qu'un format est un ensemble de macros exécutées par un moteur, généralement préchargé lorsque le moteur est invoqué avec un nom particulier.
+Pour répondre à cette question, nous devons préciser un détail sur le monde TeX que vous pouvez habituellement négliger: la différence entre un moteur et un format. Un moteur est un programme informatique réel, tandis qu'un format est un ensemble de macros exécutées par un moteur, et généralement préchargé lorsque le moteur est invoqué sous un nom spécifique.
 
-En fait, un format est plus ou moins comme une classe de document ou un paquetage, sauf qu'il est associé à un nom de commande particulier. Imaginez qu'il existe une commande "latex-article" qui ferait la même chose que latex, sauf que vous n'auriez pas besoin de dire "\documentclass{article}" au début de votre fichier. De même, dans les distributions actuelles, la commande "pdflatex" est la même que la commande "pdftex", sauf que vous n'avez pas besoin de mettre les instructions pour charger LaTeX au début de votre fichier source. C'est pratique, et légèrement plus efficace aussi.
+En fait, un format est plus ou moins comme une classe de document ou un paquetage, sauf qu'il est associé à un nom de commande particulier. Imaginez qu'il existe une commande "latex-article" qui ferait la même chose que "latex", sauf que vous n'auriez pas besoin de dire "\documentclass{article}" au début de votre fichier.  De même, dans les distributions actuelles, la commande "pdflatex" est la même que la commande "pdftex", sauf que vous n'avez pas besoin de mettre les instructions pour charger LaTeX au début de votre fichier source. C'est pratique, et légèrement plus efficace aussi.
 
-Les formats sont excellents car ils permettent d'implémenter des commandes puissantes en utilisant les outils de base fournis par un moteur. Cependant, la puissance du format est parfois limitée par l'ensemble des outils du moteur, c'est pourquoi les gens ont commencé à développer des moteurs plus puissants afin que d'autres personnes puissent mettre en \oe uvre des formats (ou des paquets) encore plus puissants. Les moteurs les plus connus actuellement (à l'exception du TeX original) sont pdfTeX, XeTeX et LuaTeX.
+Les formats sont une belle invention car ils permettent d'implémenter des commandes puissantes, en utilisant les outils de base fournis par le moteur. Cependant, la puissance du format reste limitée par l'ensemble des outils du moteur, c'est pourquoi les gens ont commencé à développer des moteurs plus puissants afin que d'autres personnes puissent mettre en \oe uvre des formats (ou des packages) encore plus puissants. Les moteurs les plus connus actuellement (à l'exception du TeX original) sont pdfTeX, XeTeX et LuaTeX.
 
-Pour compliquer encore le tableau, le moteur TeX original ne produisait que des fichiers DVI, alors que ses successeurs peuvent (aussi) produire des fichiers PDF. Chaque commande de votre système correspond à un moteur particulier, avec un format particulier et un mode de sortie particulier. Le tableau suivant résume cela: les lignes sont indexées par format, les colonnes par moteur, et dans chaque cellule, la première ligne est la commande pour ce moteur avec ce format en mode DVI, et la seconde pour le même mode PDF.
+Pour compliquer encore le tableau, le moteur TeX original ne produisait que des fichiers DVI, alors que ses successeurs peuvent (aussi) produire des fichiers PDF. Chaque commande de votre système correspond à un moteur particulier avec un format particulier et un mode de sortie particulier. Le tableau suivant résume cela: les lignes indiquent le format, les colonnes le moteur, et dans chaque case, la première ligne est la commande pour ce moteur avec ce format en mode DVI, et la seconde en mode PDF.
 
-Nous pouvons maintenant répondre à la question du titre: LuaLaTeX est le moteur LuaTeX avec le format LaTeX. Cette réponse n'est pas très satisfaisante si vous ne savez pas ce que sont LuaTeX et LaTeX.
+Nous pouvons maintenant répondre à la question posée plus haut: LuaLaTeX est le moteur LuaTeX avec le format LaTeX. Cette réponse n'est pas très satisfaisante si vous ne savez pas ce qu'est LuaTeX (et peut-être LaTeX).
 
-Comme vous le savez probablement, LaTeX est le cadre général dans lequel les documents commencent par "\documentclass", les paquets sont chargés par "\usepackage", les polices sont sélectionnées de manière intelligente (de sorte que vous puissiez passer en gras tout en préservant l'italique), les pages sont construites à l'aide d'algorithmes compliqués comprenant la prise en charge des en-têtes, des pieds de page, des notes de bas de page, des notes de marge, du matériel flottant, etc. Tout cela ne change pas avec LuaLaTeX, mais de nouveaux paquets plus puissants sont disponibles pour améliorer le fonctionnement de certaines parties du système.
+Commençons par ce que vous savez peut-être déjà: dans le monde TeX au sens large, LaTeX est le cadre général dans lequel les documents commencent par "\documentclass", les paquets sont chargés par "\usepackage", les polices sont sélectionnées de manière intelligente (de sorte que vous puissiez passer en gras tout en préservant l'italique), les pages sont construites à l'aide d'algorithmes compliqués comprenant la prise en charge des en-têtes, des pieds de page, des notes de bas de page, des notes de marge, des flottants, etc. Tout cela ne change pas avec LuaLaTeX, mais de nouveaux paquets plus puissants sont disponibles pour améliorer le fonctionnement de certaines parties du système.
 
-Alors, qu'est-ce que LuaTeX ? Version courte: le moteur TeX le plus populaire du moment ! Version longue: c'est le successeur désigné de pdfTeX et il inclut toutes ses fonctionnalités principales: génération directe de fichiers PDF avec support des fonctionnalités PDF avancées et améliorations micro-typographiques des algorithmes typographiques TeX. Les principales nouveautés de LuaTeX sont:
+Alors, qu'est-ce que LuaTeX? Version courte: le moteur TeX le plus populaire du moment! Version longue: c'est le successeur désigné de pdfTeX et il inclut toutes ses fonctionnalités principales: génération directe de fichiers PDF avec support des fonctionnalités PDF avancées et améliorations micro-typographiques des algorithmes typographiques TeX. Les principales nouveautés de LuaTeX sont:
 
-1. Support natif d'Unicode, la norme moderne de classification et d'encodage des caractères, supportant tous les caractères du monde, de l'anglais au chinois traditionnel en passant par l'arabe, y compris de nombreux symboles mathématiques (ou autrement spécialisés).
+1. Support natif d'Unicode, la norme moderne de classement et d'encodage des caractères, supportant tous les caractères du monde, de l'anglais au chinois traditionnel en passant par l'arabe, y compris de nombreux symboles mathématiques (ou symboles spécifiques d'un autre domaine).
 
 2. Inclusion de Lua comme langage de script intégré (voir section 1.3 pour plus de détails).
 
-3. Un grand nombre de bibliothèques Lua merveilleuses, y compris:
-- "fontloader", supportant les formats de polices modernes tels que TrueType et OpenType;
+3. Un grand nombre de merveilleuses bibliothèques Lua, notamment:
+- "fontloader", prenant en charge les formats de polices modernes tels que TrueType et OpenType;
 - "font", permettant une manipulation avancée des polices à partir du document;
 - "mplib", une version intégrée du programme graphique MetaPost;
 - "callback", qui permet d'accéder à des parties du moteur TeX qui étaient auparavant inaccessibles au programmeur;
 - des bibliothèques utilitaires pour la manipulation d'images, de fichiers PDF, etc.
 
-Certaines de ces fonctionnalités, comme le support de l'Unicode, ont un impact direct sur tous les documents, tandis que d'autres fournissent simplement des outils que les auteurs de paquets utiliseront pour vous fournir des commandes plus puissantes et d'autres améliorations.
+Certaines de ces fonctionnalités, comme la prise en charge d'Unicode, ont un impact direct sur tous les documents, tandis que d'autres fournissent simplement des outils que les auteurs de paquets utiliseront pour vous fournir des commandes plus puissantes et d'autres améliorations.
 
 1.2 Passage de LaTeX à LuaLaTeX
 
@@ -41,17 +41,17 @@ Comme l'explique la section précédente, LuaLaTeX est en grande partie comme La
 
 Il n'y a que trois différences:
 1. Ne chargez pas "inputenc", encodez simplement votre source en UTF-8.
-2. Ne chargez pas "fontenc" ni "textcomp", mais chargez "fontspec" à la place. 3.
+2. Ne chargez pas "fontenc" ni "textcomp", mais chargez "fontspec" à la place.
 3. "babel" fonctionne avec LuaLaTeX mais vous pouvez charger "polyglossia" à la place.
 4. N'utilisez pas de paquet qui change les polices, mais utilisez les commandes de "fontspec" à la place.
 
-Ainsi, vous n'avez qu'à vous familiariser avec "fontspec", ce qui est facile: sélectionnez la police principale (avec empattement) avec "\setmainfont", la police sans empattement avec "\setsansfont" et la police mono-espacée (machine à écrire) avec "\setmonofont". L'argument de ces commandes est le nom convivial de la police, par exemple "Latin Modern Roman" plutôt que "ec-lmr10". Vous voudrez probablement utiliser "\defaultfontfeatures{Ligatures=TeX}" avant ces commandes pour que les substitutions TeX habituelles (comme --- pour un em-dash) fonctionnent.
+Ainsi, vous n'avez qu'à vous familiariser avec "fontspec", ce qui est facile: sélectionnez la police principale (avec empattement) avec "\setmainfont", la police sans empattement avec "\setsansfont" et la police à chasse fixe (style machine à écrire) avec "\setmonofont". L'argument de ces commandes est le petit nom de la police, lisible par un humain, par exemple "Latin Modern Roman" et non "ec-lmr10". Vous voudrez probablement utiliser "\defaultfontfeatures{Ligatures=TeX}" avant ces commandes pour que les substitutions TeX habituelles (comme --- pour un em-dash) fonctionnent.
 
-La bonne nouvelle est que vous pouvez accéder directement à n'importe quelle police de votre système d'exploitation (en plus de celles de votre distribution TeX), y compris les polices TrueType et OpenType, et avoir accès à leurs fonctionnalités les plus avancées. Cela signifie qu'il est désormais facile d'installer pour les utiliser avec LuaLaTeX n'importe quelle police moderne que vous pouvez télécharger ou acheter auprès d'un éditeur et de bénéficier de tout leur potentiel.
+La bonne nouvelle est que vous pouvez accéder directement à n'importe quelle police de votre système d'exploitation (en plus de celles de votre distribution TeX), y compris les polices TrueType et OpenType, et avoir accès à leurs fonctionnalités les plus avancées. Cela signifie qu'il est désormais facile d'installer n'importe quelle police moderne que vous pouvez télécharger ou acheter auprès d'un éditeur, de les utiliser avec LuaLaTeX  et de bénéficier de tout leur potentiel.
 
-Passons maintenant aux mauvaises nouvelles: il n'est pas toujours facile d'obtenir une liste de toutes les polices disponibles. Sous Windows avec TeX Live, l'outil de ligne de commande "fc-list" les liste toutes, mais n'est pas très convivial. Sous Mac OS X, l'application Fontbook liste les polices de votre système, mais pas celles de votre distribution TeX. Même chose avec "fc-list" sous Linux. Autre mauvaise nouvelle: il n'est pas facile d'accéder à vos anciennes polices de cette manière. Heureusement, de plus en plus de polices sont disponibles dans des formats modernes chaque jour (enfin, chaque mois ou année, en fait, si on ne compte que les bonnes polices).
+Passons maintenant aux mauvaises nouvelles: il n'est pas toujours facile d'obtenir une liste de toutes les polices disponibles. Sous Windows avec TeX Live, l'outil de ligne de commande "fc-list" les liste toutes, mais n'est pas très convivial. Sous Mac OS X, l'application Fontbook liste les polices de votre système, mais pas celles de votre distribution TeX. Même chose avec "fc-list" sous Linux. Autre mauvaise nouvelle: il n'est pas facile d'accéder à vos anciennes polices de cette manière. Heureusement, progressivement, de plus en plus de polices sont disponibles dans des formats modernes.
 
-En passant, mentionnons que le contenu de cette section jusqu'à présent vaut aussi pour XeLaTeX, c'est-à-dire LaTeX sur XeTeX. En effet, XeTeX partage deux des caractéristiques essentielles de LuaTeX: l'Unicode natif et le support des formats de polices modernes (mais n'a pas les autres caractéristiques de LuaTeX; d'un autre côté, il est plus stable actuellement). Bien que leurs implémentations concernant les polices soient très différentes, "fontspec" parvient à offrir une interface de polices pratiquement unifiée pour XeLaTeX et LuaLaTeX.
+En passant, mentionnons que le contenu de cette section jusqu'à présent vaut aussi pour XeLaTeX, c'est-à-dire LaTeX sur XeTeX. En effet, XeTeX partage deux des caractéristiques essentielles de LuaTeX: l'Unicode natif et le support des formats de polices modernes (en revance, il n'a pas les autres caractéristiques de LuaTeX; mais actuellement, il est considéré comme plus stable). Bien que leurs implémentations concernant les polices de caractères soient très différentes, "fontspec" parvient à offrir une interface de police pratiquement unifiée pour XeLaTeX et LuaLaTeX.
 
 Ainsi, pour bénéficier des nouvelles fonctionnalités de LuaTeX, vous devez renoncer à un peu de l'ancien monde, à savoir les polices qui ne sont pas disponibles dans un format moderne (ainsi qu'à la liberté d'encoder votre source comme bon vous semble, mais UTF-8 est tellement supérieur aux autres encodages que vous ne perdez quasiment rien au change). Le package "luainputenc" fournit des solutions de transition qui vous permettent de retrouver certains anciens comportemenbts (bien que son nom suggère qu'il ne s'occupe que des encodages d'entrée, l'implémentation de l'encodage des polices en LaTeX implique que ce package est nécessaire (et fonctionne) également pour utiliser les anciennes polices), peut-être au prix de la perte du support réel d'Unicode.
 
@@ -75,7 +75,7 @@ En fait, il y a quelques astuces à noter. Regardons d'abord le passage de Lua v
 
 Si vous êtes suffisamment bon TeXnicien pour connaître les catcodes, vous serez heureux d'apprendre que "tex.print" et ses variantes vous donnent un contrôle presque total sur les catcodes utilisés pour tokeniser l'argument, puisque vous pouvez spécifier une table de catcodes comme premier argument. Les tables de catcodes sont présentées à la section 2.7.6 dans le manuel LuaTeX (dans la version actuelle), vous avez sans doute intérêt à y jeter un oeil. Si vous ne connaissez pas les catcodes, passez ce paragraphe. (Erf, trop tard, vous l'avez déjà lu).
 
-Regardons maintenant "\directlua". Pour vous faire une idée de son fonctionnement, imaginez qu'il s'agit d'une commande "\write", mais qu'elle écrit uniquement dans un fichier virtuel et s'arrange pour que ce fichier soit immédiatement transmis à l'interpréteur Lua. Du côté de Lua, la conséquence est que chaque argument d'une commande "\directlua" a sa propre portée : les variables définies localement dans un argument ne seront pas visibles par le suivant. (Ce qui est plutôt sain, mais toujours bon à savoir).
+Regardons maintenant "\directlua". Pour vous faire une idée de son fonctionnement, imaginez qu'il s'agit d'une commande "\write", mais qu'elle écrit uniquement dans un fichier virtuel et s'arrange pour que ce fichier soit immédiatement transmis à l'interpréteur Lua. Du côté de Lua, la conséquence est que chaque argument d'une commande "\directlua" a sa propre portée: les variables définies localement dans un argument ne seront pas visibles par le suivant. (Ce qui est plutôt sain, mais toujours bon à savoir).
 
 Maintenant, le problème majeur est qu'avant d'être transmis à l'interpréteur Lua, l'argument est d'abord lu et tokénisé par TeX, puis entièrement développé et transformé en une chaîne de caractères ordinaire. La lecture par TeX a plusieurs conséquences. L'une d'entre elles est que les fins de lignes sont transformées en espaces, de sorte que l'interprète Lua ne voit qu'une (longue) ligne d'entrée. Comme Lua est un langage de forme libre, cela n'a généralement pas d'importance, sauf si vous utilisez des commentaires:
 
@@ -83,7 +83,7 @@ Maintenant, le problème majeur est qu'avant d'être transmis à l'interpréteur
     % un commentaire
     une_autre_fonction()}
 
-ne fera pas ce que vous attendez probablement : "une_autre_fonction()" sera considéré comme faisant partie du commentaire (tout est mis sur une seule ligne, ne l'oubliez pas).
+ne fera pas ce que vous attendez probablement: "une_autre_fonction()" sera considéré comme faisant partie du commentaire (tout est mis sur une seule ligne, ne l'oubliez pas).
 
 Une autre conséquence de la lecture par TeX est que les espaces successives sont fusionnés en une unique espace, et que les commentaires TeX sont éliminés. Voici donc une version correcte de l'exemple précédent, de façon surprenante:
 
