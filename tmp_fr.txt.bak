@@ -1,8 +1,6 @@
 Ce document se veut être un guide touristique du nouveau monde de LuaLaTeX (bien que centré sur LuaLaTeX, il inclut également des informations utiles sur LuaTeX utilisé avec le format Plain). Le public visé va des nouveaux venus (ayant une connaissance pratique du LaTeX conventionnel) aux développeurs de packages. Ce guide se veut exhaustif dans le sens suivant: il contient des pointeurs vers toutes les sources pertinentes, rassemble des informations qui sont autrement dispersées et ajoute des éléments d'introduction.
 
-Vos commentaires et suggestions d'améliorations sont les bienvenus. Ce document est un travail en cours; merci pourr votre bienveillance et votre patience.
-
-Bien que centré sur LuaLaTeX, il inclut également des informations utiles sur LuaTeX utilisé avec le format Plain.
+Vos commentaires et suggestions d'améliorations sont les bienvenus. Ce document est un travail en cours; merci pour votre bienveillance et votre patience.
 
 Introduction
 
@@ -80,7 +78,7 @@ Regardons maintenant "\directlua". Pour vous faire une idée de son fonctionneme
 Maintenant, le problème majeur est qu'avant d'être transmis à l'interpréteur Lua, l'argument est d'abord lu et tokénisé par TeX, puis entièrement développé et transformé en une chaîne de caractères ordinaire. La lecture par TeX a plusieurs conséquences. L'une d'entre elles est que les fins de lignes sont transformées en espaces, de sorte que l'interprète Lua ne voit qu'une (longue) ligne d'entrée. Comme Lua est un langage de forme libre, cela n'a généralement pas d'importance, sauf si vous utilisez des commentaires:
 
   \directlua{une_fonction()
-    % un commentaire
+    -- un commentaire
     une_autre_fonction()}
 
 ne fera pas ce que vous attendez probablement: "une_autre_fonction()" sera considéré comme faisant partie du commentaire (tout est mis sur une seule ligne, ne l'oubliez pas).
