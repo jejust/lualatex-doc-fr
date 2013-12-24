@@ -118,7 +118,7 @@ Il est important de savoir que les noms des nouvelles primitives de LuaTeX tels 
 
 Oh, et au fait, ai-je mentionné que LuaTeX est en version bêta et que la version 1.0 est attendue au printemps 2014 ? Vous pouvez en apprendre davantage sur la feuille de route présentée sur site web de LuaTeX. Des versions bêta stables sont publiées régulièrement et sont incluses dans TeX Live depuis 2008, et dans MikTeX depuis 2.9.
 
-Le support de LuaTeX dans LaTeX soit tout nouveau, ce qui signifie qu'il peut être plein de bugs et que les choses peuvent encore changer à tout moment. Il est donc important de garder votre distribution TeX à jour (pour avoir les corrections de bugs) et éviter d'utiliser LuaLaTeX pour des documents critiques, au moins pendant un certain temps (pour ne pas rencontrer un nouveau bug au mauvais moment).
+Le support de LuaTeX dans LaTeX est tout nouveau, ce qui signifie qu'il peut être bourré de de bugs et que les choses peuvent encore changer à tout moment. Il est donc important de garder votre distribution TeX à jour (pour avoir les corrections de bugs) et éviter d'utiliser LuaLaTeX pour des documents critiques, au moins pendant un certain temps (pour ne pas rencontrer un nouveau bug au mauvais moment).
 
 En règle générale, ce guide documente les choses telles qu'elles sont au moment où il est écrit ou mis à jour, sans tenir compte des changements. Nous espérons que vous mettrez à jour votre distribution dans son ensemble afin d'obtenir toujours des versions correspondantes de ce guide et des paquets, formats et moteur qu'il décrit.
 

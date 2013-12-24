@@ -1,50 +1,7 @@
 
-Maintenant, le problème majeur est qu'avant d'être transmis à l'interpréteur Lua, l'argument est d'abord lu et tokénisé par TeX, puis entièrement développé et transformé en une chaîne de caractères ordinaire. La lecture par TeX a plusieurs conséquences. L'une d'entre elles est que les fins de lignes sont transformées en espaces, de sorte que l'interprète Lua ne voit qu'une (longue) ligne d'entrée. Comme Lua est un langage de forme libre, cela n'a généralement pas d'importance, sauf si vous utilisez des commentaires:
 
-  \directlua{une_fonction()
-    -- un commentaire
-    une_autre_fonction()}
 
-ne fera pas ce que vous attendez probablement: "une_autre_fonction()" sera considéré comme faisant partie du commentaire (tout est mis sur une seule ligne, ne l'oubliez pas).
 
-Une autre conséquence de la lecture par TeX est que les espaces successives sont fusionnés en une unique espace, et que les commentaires TeX sont éliminés. Voici donc une version correcte de l'exemple précédent, de façon surprenante:
-
-  \directlua{une_fonction()
-    % un commentaire
-    une_autre_fonction()}
-
-Il convient également de noter que, puisque l'argument se trouve essentiellement à l'intérieur d'un "\write", il se trouve dans un contexte d'expansion uniquement. Si vous ne savez pas ce que cela signifie, laissez-moi seulement vous dire que les problèmes d'expansion sont ce qui rend la programmation TeX si difficile et qu'il vaut mieux éviter de développer davantage cette question aujourd'hui.
-
-Je vous prie de m'excuser si les trois derniers paragraphes ont été un peu TeXniques mais j'ai préféré vous prévenir de ces pièges. Pour vous récompenser d'être resté avec moi, voici une astuce de débogage. Mettez le code suivant au début de votre document:
-
-  \newwrite\luadebug
-  \immediate\openout\luadebug luadebug.lua
-  \AtEndDocument{\immediate\closeout\luadebug}
-  \newcommand\directluadebug{\immediate\write\luadebug}
-
-Ensuite, lorsque vous aurez du mal à comprendre pourquoi un appel particulier à "\directlua" ne fait pas ce que vous attendez, remplacez cette instance de la commande par "\directluadebug", compilez comme d'habitude et regardez dans le fichier "luadebug.lua" ce que l'interpréteur Lua a réellement lu.
-
-Le package "luacode" fournit des commandes et des environnements qui aident de différentes façons à résoudre certains de ces problèmes. Cependant, dès que le code Lua utilisé n'est plus trivial, il est plus sage d'utiliser un fichier externe contenant uniquement du code Lua définissant des fonctions, puis de le charger et d'appeler ses fonctions depuis le document LuaTeX. Par exemple:
-
-  \directlua{dofile("mes-functions-lua.lua")}
-  \newcommand*{\macrogeniale}[2]{%
-  \directlua{ma_fonction_geniale("\luatexluaescapestring{#1}", #2)}}
-
-L'exemple suppose que "ma_fonction_geniale" est définie dans "mes-fonctions-lua.lua" et prend une chaîne de caractères et un nombre comme arguments. Remarquez que nous utilisons soigneusement les primitives "\luatexluaescapestring" sur l'argument chaîne de caractères afin d'échapper à toute barre oblique inverse ou double-citation qu'il pourrait contenir et qui pourrait perturber l'analyseur syntaxique Lua. (Si vous avez déjà utilisé SQL, le concept d'échappement des chaînes de caractères n'est pas nouveau pour vous).
-
-C'est tout pour ce qui concerne Lua dans TeX. Maintenant, si vous vous demandez pourquoi "\luatexluaescapestring" a un nom aussi ridiculement long, lisez la section suivante.
-
-1.4 Autres choses à savoir
-
-Avant toute chose, mentionnons que le manuel LuaTeX, "luatexref-t.pdf", est une excellente source d'informations sur LuaTeX et vous voudrez probablement le consulter à un moment ou à un autre (bien qu'il soit un peu aride et technique).
-
-Il est important de savoir que les noms des nouvelles primitives de LuaTeX tels que vous les lisez dans le manuel ne sont pas les noms réels que vous pourrez utiliser dans LuaLaTeX. Pour éviter les conflits avec les noms de macros existants, toutes les nouvelles primitives ont été préfixées par "\luatex", à moins qu'elles ne commencent déjà par ce nom. Ainsi, "\luaescapestring" devient "\luatexluaescapetring", tandis que "\luatexversion" reste "\luatexversion". Le raisonnement est détaillé dans la section 4.
-
-Oh, et au fait, ai-je mentionné que LuaTeX est en version bêta et que la version 1.0 est attendue au printemps 2014 ? Vous pouvez en apprendre davantage sur la feuille de route présentée sur site web de LuaTeX. Des versions bêta stables sont publiées régulièrement et sont incluses dans TeX Live depuis 2008, et dans MikTeX depuis 2.9.
-
-Le support de LuaTeX dans LaTeX soit tout nouveau, ce qui signifie qu'il peut être plein de bugs et que les choses peuvent encore changer à tout moment. Il est donc important de garder votre distribution TeX à jour (pour avoir les corrections de bugs) et éviter d'utiliser LuaLaTeX pour des documents critiques, au moins pendant un certain temps (pour ne pas rencontrer un nouveau bug au mauvais moment).
-
-En règle générale, ce guide documente les choses telles qu'elles sont au moment où il est écrit ou mis à jour, sans tenir compte des changements. Nous espérons que vous mettrez à jour votre distribution dans son ensemble afin d'obtenir toujours des versions correspondantes de ce guide et des paquets, formats et moteur qu'il décrit.
 
 
 ############################################################
