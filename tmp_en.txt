@@ -108,7 +108,7 @@ The luacode package provides commands and environments that help to varying degr
 \newcommand*{\greatmacro}[2]{%
 \directlua{my_great_function("\luatexluaescapestring{#1}", #2)}}
 
-The example assumes that my_great_function is defined in "my-lua-functions.lua" and takes a  string and a number as arguments. Notice that we carefully use the "\luatexluaescapestring" primitives on the string argument to escape any backslash or double-quote it might contain and which would confuse the Lua parser. (If you ever used SQL then the concept of escaping strings is hopefully not new to you."
+The example assumes that my_great_function is defined in "my-lua-functions.lua" and takes a string and a number as arguments. Notice that we carefully use the "\luatexluaescapestring" primitives on the string argument to escape any backslash or double-quote it might contain and which would confuse the Lua parser. (If you ever used SQL then the concept of escaping strings is hopefully not new to you."
 
 That's all concerning Lua in TeX. If you're wondering why "\luatexluaescapestring" has such a long and silly name, you might want to read the next section.
 

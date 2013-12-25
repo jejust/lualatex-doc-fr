@@ -17,8 +17,6 @@ world: all ctan
 
 .PHONY: all world
 
-# (with the next version of latexmk: -pdf -pdflatex=lualatex)
-#LATEXMK_FMT = -pdf -e '$$pdflatex = q(lualatex %O %S)'
 LATEXMK_FMT = -pdf -pdflatex=lualatex
 
 %.pdf: %.tex

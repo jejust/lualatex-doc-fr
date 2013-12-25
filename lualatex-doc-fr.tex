@@ -67,16 +67,13 @@ personnes puissent mettre en \oe uvre des formats (ou des packages) encore plus
 puissants. Les moteurs les plus connus actuellement (à l'exception du \tex original)
 sont \pdftex, \xetex et \luatex.
 
-To further complicate the picture, the original \tex engine produced only DVI
-files, while its successors may (also) produce PDF file.  Each command in your
-system corresponds to a particular engine with a particular format and a
-particular output mode. The following table summarizes this: rows are indexed
-by format, columns by engine, and in each cell the first line is the command
-for this engine with this format in DVI mode, and the second for the same PDF
-mode.
-
-Pour compliquer encore le tableau, le moteur TeX original ne produisait que des fichiers DVI, alors que ses successeurs peuvent (aussi) produire des fichiers PDF. Chaque commande de votre système correspond à un moteur particulier avec un format particulier et un mode de sortie particulier. Le tableau suivant résume cela: les lignes indiquent le format, les colonnes le moteur, et dans chaque case, la première ligne est la commande pour ce moteur avec ce format en mode DVI, et la seconde en mode PDF.
-%%
+Pour compliquer encore le tableau, le moteur \tex original ne produisait que des
+fichiers~DVI, alors que ses successeurs peuvent (aussi) produire des fichiers~PDF.
+Chaque commande de votre système correspond à un moteur particulier avec un format
+particulier et un mode de sortie particulier. Le tableau suivant résume cela:
+les lignes indiquent le format, les colonnes le moteur, et dans chaque case,
+la première ligne est la commande pour ce moteur avec ce format en mode~DVI,
+et la seconde en mode~PDF.
 
 \begin{center}
   \newcommand*\cell [2] {%
@@ -103,26 +100,22 @@ Pour compliquer encore le tableau, le moteur TeX original ne produisait que des 
   \end{tabular}
 \end{center}
 
-We can now answer the title question: \lualatex is the \luatex engine with the
-\latex format. Well, this answer isn't very satisfying if you don't know what
-\luatex and \latex are.
-
-Nous pouvons maintenant répondre à la question posée plus haut: LuaLaTeX est le moteur LuaTeX avec le format LaTeX. Cette réponse n'est pas très satisfaisante si vous ne savez pas ce qu'est LuaTeX (et peut-être LaTeX).
-%%
+Nous pouvons maintenant répondre à la question posée plus haut: \lualatex est
+le moteur \luatex avec le format \latex. Cette réponse n'est pas très satisfaisante
+si vous ne savez pas ce qu'est \luatex (et peut-être \latex).
 
 \medskip
 
-As you probably know, \latex is the general framework
-in which documents begin with ©\documentclass©, packages are loaded with
-©\usepackage©, fonts are selected in a clever way (so that you can switch to
-boldface while preserving italics), pages are build with complicated
-algorithms including support for headers, footers, footnotes, margin notes,
-floating material, etc. This mostly doesn't change with \lualatex, but new and
-more powerful packages are available to make parts of the system work in a better
-way.
+Commençons par ce que vous savez peut-être déjà: dans le monde \tex au sens large,
+\latex est le cadre général dans lequel les documents commencent par
+©\documentclass©, les paquets sont chargés par ©\usepackage©, les polices sont
+sélectionnées de manière intelligente (de sorte que vous puissiez passer en gras
+tout en préservant l'italique), les pages sont construites à l'aide d'algorithmes
+compliqués comprenant la prise en charge des en-têtes, des pieds de page, des
+notes de bas de page, des notes de marge, des flottants, etc. Tout cela ne change
+pas avec \lualatex, mais de nouveaux paquets plus puissants sont disponibles
+pour améliorer le fonctionnement de certaines parties du système.
 
-Commençons par ce que vous savez peut-être déjà: dans le monde TeX au sens large, LaTeX est le cadre général dans lequel les documents commencent par ©\documentclass©, les paquets sont chargés par ©\usepackage©, les polices sont sélectionnées de manière intelligente (de sorte que vous puissiez passer en gras tout en préservant l'italique), les pages sont construites à l'aide d'algorithmes compliqués comprenant la prise en charge des en-têtes, des pieds de page, des notes de bas de page, des notes de marge, des flottants, etc. Tout cela ne change pas avec LuaLaTeX, mais de nouveaux paquets plus puissants sont disponibles pour améliorer le fonctionnement de certaines parties du système.
-%%
 
 So, what's \luatex? Short version: the hottest \tex engine right now!
 Long version: It is the designated successor of \pdftex and
@@ -209,7 +202,7 @@ OpenType fonts and have access to their most advanced features. It means it
 is now easy to install for use with \lualatex any modern font you may download
 or purchase from an editor and benefit from their full potential.
 
-La bonne nouvelle est que vous pouvez accéder directement à n'importe quelle police de votre système d'exploitation (en plus de celles de votre distribution TeX), y compris les polices TrueType et OpenType, et avoir accès à leurs fonctionnalités les plus avancées. Cela signifie qu'il est désormais facile d'installer n'importe quelle police moderne que vous pouvez télécharger ou acheter auprès d'un éditeur, de les utiliser avec LuaLaTeX  et de bénéficier de tout leur potentiel.
+La bonne nouvelle est que vous pouvez accéder directement à n'importe quelle police de votre système d'exploitation (en plus de celles de votre distribution TeX), y compris les polices TrueType et OpenType, et avoir accès à leurs fonctionnalités les plus avancées. Cela signifie qu'il est désormais facile d'installer n'importe quelle police moderne que vous pouvez télécharger ou acheter auprès d'un éditeur, de les utiliser avec LuaLaTeX et de bénéficier de tout leur potentiel.
 %%
 
 Now for the bad news: it is not always easy to get a list of all available
@@ -268,7 +261,7 @@ recommend you read chapters~1 to~5 and have a quick glance at part~3. Note
 that all the libraries mentioned in chapter~3 are included in \luatex, but the
 ©os© library is restricted for security reasons.
 
-Lua est un petit langage, plutôt bien pensé, bien moins surprenant que TeX en tant que langage de programmation, et beaucoup plus facile à apprendre que lui. La référence essentielle est l'excellent livre  "Programming in Lua", dont la première édition est disponible gratuitement en ligne (en anglais). Pour commencer rapidement, je vous recommande de lire les chapitres~1 à~5 et de jeter un coup d'\oe il à la partie~3. Notez que toutes les bibliothèques mentionnées dans le chapitre~3 sont incluses dans LuaTeX, mais que la bibliothèque ©os© est restreinte pour des raisons de sécurité.
+Lua est un petit langage, plutôt bien pensé, bien moins surprenant que TeX en tant que langage de programmation, et beaucoup plus facile à apprendre que lui. La référence essentielle est l'excellent livre "Programming in Lua", dont la première édition est disponible gratuitement en ligne (en anglais). Pour commencer rapidement, je vous recommande de lire les chapitres~1 à~5 et de jeter un coup d'\oe il à la partie~3. Notez que toutes les bibliothèques mentionnées dans le chapitre~3 sont incluses dans LuaTeX, mais que la bibliothèque ©os© est restreinte pour des raisons de sécurité.
 %%
 
 Depending on your programming culture, you may be directly interested in the
@@ -289,7 +282,7 @@ argument. Conversely, you can pass information from Lua to \tex with
 ©tex.sprint©.\footnote{The name probably means ``string print'' as opposed to
   ``run very fast for a short period of time.''} For example,
 
-Passons maintenant à l'utilisation de Lua dans LuaTeX. La principale façon d'exécuter du code Lua à partir de TeX est la commande ©\directlua©, qui prend du code Lua arbitraire comme argument. Inversement, vous pouvez passer des informations de Lua à TeX avec la commande ©tex.sprint© (Dans ce nom, "sprint" signifie "string print" (imprimer une chaîne), et non "aller très vite"!).  Par exemple,
+Passons maintenant à l'utilisation de Lua dans LuaTeX. La principale façon d'exécuter du code Lua à partir de TeX est la commande ©\directlua©, qui prend du code Lua arbitraire comme argument. Inversement, vous pouvez passer des informations de Lua à TeX avec la commande ©tex.sprint© (Dans ce nom, \og{}sprint\gf{} signifie \og{}\emph{string print}\fg{} (\og{}imprimer une chaîne\fg{}), et non \og{}aller très vite"\fg{}!). Par exemple,
 %%
 \begin{Verbatim}
   approximation standard de $\pi = \directlua{tex.sprint(math.pi)}$
@@ -310,7 +303,7 @@ character. Most of the time, you don't want this to happen, so I recommend
 using ©tex.sprint© which virtually inserts its argument in the current line,
 so is much more predictable.
 
-En fait, il y a quelques astuces à noter. Regardons d'abord le passage de Lua vers Tex, c'est le plus simple (puisqu'il s'agit davantage de Lua que de Tex). Si vous consultez le manuel LuaTeX, vous verrez qu'il existe une autre fonction avec un nom plus simple, "tex.print", pour faire passer des informations dans ce sens. Elle fonctionne en insérant virtuellement une ligne complète dans votre source TeX, dont le contenu est son argument. Au cas où vous ne le sauriez pas, TeX fait beaucoup de choses désagréables (d'accord, ce sont généralement des actions utiles et bien intentionnées, mais dans ce cas présent, elles sont inattendues, donc je les appelle désagréables) avec les lignes complètes de la source: ignorer les espaces en début et en fin de ligne et ajouter un caractère de fin de ligne. La plupart du temps, vous ne voulez pas que cela se produise, donc je recommande d'utiliser ©tex.sprint© qui insère simplement son argument dans la ligne courante, et donne un résultat plus prévisible.
+En fait, il y a quelques astuces à noter. Regardons d'abord le passage de Lua vers Tex, c'est le plus simple (puisqu'il s'agit davantage de Lua que de Tex). Si vous consultez le manuel LuaTeX, vous verrez qu'il existe une autre fonction avec un nom plus simple, ©tex.print©, pour faire passer des informations dans ce sens. Elle fonctionne en insérant virtuellement une ligne complète dans votre source TeX, dont le contenu est son argument. Au cas où vous ne le sauriez pas, TeX fait beaucoup de choses désagréables (d'accord, ce sont généralement des actions utiles et bien intentionnées, mais dans ce cas présent, elles sont inattendues, donc je les appelle désagréables) avec les lignes complètes de la source: ignorer les espaces en début et en fin de ligne et ajouter un caractère de fin de ligne. La plupart du temps, vous ne voulez pas que cela se produise, donc je recommande d'utiliser ©tex.sprint© qui insère simplement son argument dans la ligne courante, et donne un résultat plus prévisible.
 %%
 
 If you're enough of a \tex{}nician to know about catcodes, you'll be happy to
@@ -321,7 +314,7 @@ tables (currently~2.7.6 in the \luatex manual) before you're fully happy. If
 you don't know about catcodes, just skip this paragraph.\footnote{Erf, too
   late, you already read it.}
 
-Si vous êtes suffisamment bon TeXnicien pour connaître les catcodes, vous serez heureux d'apprendre que ©tex.print© et ses variantes vous donnent un contrôle presque total sur les catcodes utilisés pour tokeniser l'argument, puisque vous pouvez spécifier une table de catcodes comme premier argument. Les tables de catcodes sont présentées à la section~2.7.6 dans le manuel LuaTeX (dans la version actuelle), vous avez sans doute intérêt à y jeter un \oe il. Si vous ne connaissez pas les catcodes, passez ce paragraphe. (Erf, trop tard, vous l'avez déjà lu).
+Si vous êtes suffisamment bon TeXnicien pour connaître les catcodes, vous serez heureux d'apprendre que ©tex.print© et ses variantes vous donnent un contrôle presque total sur les catcodes utilisés pour tokeniser l'argument, puisque vous pouvez spécifier une table de catcodes comme premier argument. Les tables de catcodes sont présentées à la section~2.7.6 dans le manuel LuaTeX (dans la version actuelle), vous avez sans doute intérêt à y jeter un \oe il. Si vous ne connaissez pas les catcodes, passez ce paragraphe.\footnote{Arf, trop tard, vous l'avez déjà lu\dots}
 %%
 
 \medskip
@@ -333,7 +326,7 @@ consequence is that each argument of a ©\directlua© command has its own scope:
 local variables from one will not be visible to the other. (Which is rather
 sane, but always good to know.)
 
-Regardons maintenant ©\directlua©. Pour vous faire une idée de son fonctionnement, imaginez qu'il s'agit d'une commande ©\write©, mais qu'elle écrit uniquement dans un fichier virtuel et s'arrange pour que ce fichier soit immédiatement transmis à l'interpréteur Lua. Du côté de Lua, la conséquence est que chaque argument d'une commande ©\directlua© a sa propre portée: les variables définies localement dans un argument ne seront pas visibles par le suivant. (Ce qui est plutôt sain, mais toujours bon à savoir).
+Regardons maintenant ©\directlua©. Pour vous faire une idée de son fonctionnement, imaginez qu'il s'agit d'une commande ©\write©, mais qu'elle écrit uniquement dans un fichier virtuel et s'arrange pour que ce fichier soit immédiatement transmis à l'interpréteur Lua. Du côté de Lua, la conséquence est que chaque argument d'une commande ©\directlua© a sa propre portée: les variables définies localement dans un argument ne seront pas visibles par le suivant (ce qui est plutôt sain, mais toujours bon à savoir).
 %%
 
 Now, the major gotcha is that before being fed to the Lua interpreter, the
@@ -381,7 +374,7 @@ I'm sorry if the last three paragraphs were a bit \tex{}nical in nature but
 I thought you had to know. To reward you for staying with me, here is a
 debugging trick. Put the following code near the beginning of your document:
 
-Je vous prie de m'excuser si les trois derniers paragraphes ont été un peu TeXniques mais j'ai préféré vous prévenir de ces pièges. Pour vous récompenser d'être resté avec moi, voici une astuce de débogage. Mettez le code suivant au début de votre document:
+Je vous prie de m'excuser si les trois derniers paragraphes ont été un peu \tex{}niques mais j'ai préféré vous prévenir de ces pièges. Pour vous récompenser d'être resté avec moi, voici une astuce de débogage. Collez le code suivant au début de votre document:
 %%
 \begin{Verbatim}
   \newwrite\luadebug
@@ -511,8 +504,8 @@ On the Lua end, please keep the global namespace as clean as possible. That
 is, use a table ©mypackage© and put all your public functions and objects in
 this table. You might want to avoid using Lua's deprecated \code{module()}.
 Other strategies for Lua module management are discussed in
-\href{http://www.lua.org/pil/15.html} {chapter~15 of \emph{Programming in
-    Lua}}, and examples are given in \file{luatexbase-modutils.pdf}.  Also, it
+\href{http://www.lua.org/pil/15.html}{chapter~15 of \emph{Programming in
+Lua}}, and examples are given in \file{luatexbase-modutils.pdf}. Also, it
 is a good and necessary practice to use ©local© for your internal variables and
 functions. Finally, to avoid clashes with future versions of \luatex, it is
 necessary to avoid modifying the namespaces of \luatex's default libraries.
