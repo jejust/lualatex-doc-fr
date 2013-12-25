@@ -45,7 +45,7 @@ There are only three differences:
 3. "babel" works with LuaLaTeX but you can load "polyglossia" instead.
 4. Don't use any package that changes the fonts, but use "fontspec"'s commands instead.
 
-So, you only need to get familiar with "fontspec", which is easy: select the main (serif) font with "\setmainfont", the sans serif font with "\setsansfont" and the mono-spaced (typewriter) font with "\setmonofont". The argument to these commands is the human friendly name of the font, for example "Latin Modern Roman" rather than "ec-lmr10". You probably want to use "\defaultfontfeatures{Ligatures=TeX}" before these commands to keep the usual TeX substitutions (such as --- for an em-dash) working.
+So, you only need to get familiar with "fontspec", which is easy: select the main (serif) font with "\setmainfont", the sans serif font with "\setsansfont" and the mono-spaced (typewriter) font with "\setmonofont". The argument to these commands is the human friendly name of the font, for example "Latin Modern Roman" rather than "ec-lmr10". You probably want to use "\defaultfontfeatures{Ligatures=TeX}" before these commands to keep the usual TeX substitutions (such as "---" for an em-dash) working.
 
 The good news is: you can directly access any font on your operating system (in addition to those of your TeX distribution) including TrueType and OpenType fonts and have access to their most advanced features. It means it is now easy to install for use with LuaLaTeX any modern font you may download or purchase from an editor and benefit from their full potential.
 

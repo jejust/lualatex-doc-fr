@@ -17,6 +17,8 @@
 \setsansfont{Kurier}
 \setmonofont{Inconsolata}
 
+\RequirePackage{microtype}
+
 \newcommand*\simplelogo [1] {%
   \ifcsname #1\endcsname \else \badlogocommand \fi
   \lowercase{\expandafter\simple@logo\expandafter{%

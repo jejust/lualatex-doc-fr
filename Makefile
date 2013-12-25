@@ -1,4 +1,4 @@
-NAME   = lualatex-doc
+NAME   = lualatex-doc-fr
 FORMAT = lualatex
 
 DOC    = $(NAME).pdf
@@ -12,13 +12,14 @@ ALL       = $(SRCFILES) $(DOCFILES)
 
 GENERATED = $(DOC) $(README)
 
-all: lualatex-doc.pdf
+all: lualatex-doc-fr.pdf
 world: all ctan
 
 .PHONY: all world
 
 # (with the next version of latexmk: -pdf -pdflatex=lualatex)
-LATEXMK_FMT = -pdf -e '$$pdflatex = q(lualatex %O %S)'
+#LATEXMK_FMT = -pdf -e '$$pdflatex = q(lualatex %O %S)'
+LATEXMK_FMT = -pdf -pdflatex=lualatex
 
 %.pdf: %.tex
 	latexmk -silent $(LATEXMK_FMT) $< >/dev/null
