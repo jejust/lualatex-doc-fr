@@ -81,11 +81,11 @@
 
 \newcommandx*\pkdesc [6][6] {%
   \para                             {#1}
-  \pkditem {Engines}                {#3}
+  \pkditem {Moteurs}                {#3}
   \pkditem {Formats}                {#4}
-  \pkditem {Authors}            [\\]{#2}
-  \pkditem {CTAN location}      [\\]{#5}[\ctan]
-  \pkditem {Development url}    [\\]{#6}[\url]
+  \pkditem {Auteurs}            [\\]{#2}
+  \pkditem {Sur le CTAN}        [\\]{#5}[\ctan]
+  \pkditem {URL source}         [\\]{#6}[\url]
   \newline
 }
 \newcommandx*\pkditem [4][2,4] {\@ifnotmtarg{#3}{%
