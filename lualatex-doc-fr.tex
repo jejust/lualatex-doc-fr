@@ -108,12 +108,12 @@ si vous ne savez pas ce qu'est \luatex (et peut-être \latex).
 
 Commençons par ce que vous savez sans doute déjà: dans le monde \tex au sens large,
 \latex est le cadre général dans lequel les documents commencent par
-©\documentclass©, les paquets sont chargés par ©\usepackage©, les polices sont
+©\documentclass©, les packages sont chargés par ©\usepackage©, les polices sont
 sélectionnées de manière intelligente (de sorte que vous puissiez passer en gras
 tout en préservant l'italique), les pages sont construites à l'aide d'algorithmes
 compliqués comprenant la prise en charge des en-têtes, des pieds de page, des
 notes de bas de page, des notes de marge, des flottants, etc. Tout cela ne change
-pas avec \lualatex, mais de nouveaux paquets plus puissants sont disponibles
+pas avec \lualatex, mais de nouveaux packages plus puissants sont disponibles
 pour améliorer le fonctionnement de certaines parties du système.
 
 
@@ -147,17 +147,17 @@ Les principales nouveautés de \luatex sont:
 \end{enumerate}
 Certaines de ces fonctionnalités, comme la prise en charge d'Unicode, ont un
 impact direct sur tous les documents, tandis que d'autres fournissent simplement
-des outils que les auteurs de paquets utiliseront pour vous fournir des commandes
+des outils que les auteurs de packages utiliseront pour vous fournir des commandes
 plus puissantes et autres améliorations.
 
 
 \subsection{Passage de \latex à \lualatex}\label{switch}
 
 Comme l'explique la section précédente, \lualatex{} est en grande partie comme \latex,
-avec quelques différences, et des paquets et outils plus puissants disponibles.
+avec quelques différences, et des packages et outils plus puissants disponibles.
 Nous présentons ici le minimum absolu que vous devez savoir pour produire
 un document avec \lualatex, tandis que le reste du document fournit
-plus de détails sur les paquets disponibles.
+plus de détails sur les packages disponibles.
 
 
 Il n'y a que trois différences:
@@ -167,7 +167,7 @@ Il n'y a que trois différences:
      à la place.
   \item \pf{babel} fonctionne avec \lualatex{} mais vous pouvez charger \pf{polyglossia}
      à la place.
-  \item N'utilisez pas de paquet qui change les polices, mais utilisez les commandes
+  \item N'utilisez pas de package qui change les polices, mais utilisez les commandes
     de \pf{fontspec} à la place.
 \end{enumerate}
 Ainsi, vous n'avez qu'à vous familiariser avec \pf{fontspec}, ce qui est facile:
@@ -251,7 +251,7 @@ façon d'exécuter du code Lua à partir de \tex est la commande ©\directlua©,
 qui prend du code Lua arbitraire comme argument. Inversement, vous pouvez
 passer des informations de Lua à \tex avec la commande ©tex.sprint©\footnote{Dans
   ce nom, \og{}sprint\gf{} signifie \og{}\emph{string print}\fg{}
-  (\og{}imprimer une chaîne\fg{}), et non \og{}aller très vite"\fg{}!}.
+  (\og{}imprimer une chaîne\fg{}), et non \og{}aller très vite\fg{}!}.
 Par exemple,
 \begin{Verbatim}
   approximation standard de $\pi = \directlua{tex.sprint(math.pi)}$
@@ -349,7 +349,7 @@ trivial pieces of Lua code, it is wiser to use an external file containing
 only Lua code defining functions, then load it and use its functions. For
 example:
 
-Le package "luacode" fournit des commandes et des environnements qui aident de différentes façons à résoudre certains de ces problèmes. Cependant, dès que le code Lua utilisé n'est plus trivial, il est plus sage d'utiliser un fichier externe contenant uniquement du code Lua définissant des fonctions, puis de le charger et d'appeler ses fonctions depuis le document LuaTeX. Par exemple:
+Le package \pk{luacode} fournit des commandes et des environnements qui aident de différentes façons à résoudre certains de ces problèmes. Cependant, dès que le code Lua utilisé n'est plus trivial, il est plus sage d'utiliser un fichier externe contenant uniquement du code Lua définissant des fonctions, puis de le charger et d'appeler ses fonctions depuis le document LuaTeX. Par exemple:
 %%
 \begin{Verbatim}
   \directlua{dofile("mes-functions-lua.lua")}
@@ -377,12 +377,9 @@ C'est tout pour ce qui concerne Lua dans TeX. Maintenant, si vous vous demandez 
 
 \subsection{Autres choses à savoir}\label{things}
 
-Just in case it isn't obvious, the \luatex manual, \file{luatexref-t.pdf}, is
-a great source of information about \luatex and you'll probably want to
-consult it at some point (though it is a bit arid and technical).
-
-Avant toute chose, mentionnons que le manuel \luatex, \file{luatexref-t.pdf}, est une excellente source d'informations sur \luatex et vous voudrez probablement le consulter à un moment ou à un autre (bien qu'il soit un peu aride et technique).
-%%
+Avant toute chose, mentionnons que le manuel \luatex, \file{luatexref-t.pdf},
+est une excellente source d'informations sur \luatex et vous voudrez probablement
+le consulter à un moment ou à un autre (bien qu'il soit un peu aride et technique).
 
 It is important to know that the name of the new primitives of \luatex as you
 read them in the manual are not the actual names you'll be able to use in
@@ -401,7 +398,7 @@ expected in spring 2014? You can learn more on the roadmap page of
 \href{http://luatex.org/}{the \luatex site}. Stable betas are released
 regularly and are included in \texlive since 2008 and \miktex since 2.9.
 
-Oh, et au fait, ai-je mentionné que \luatex est en version bêta et que la version~1.0 est attendue au printemps 2014 ? Vous pouvez en apprendre davantage sur la feuille de route présentée sur site web de LuaTeX. Des versions bêta stables sont publiées régulièrement et sont incluses dans \texlive depuis 2008, et dans \miktex depuis 2.9.
+Oh, et au fait, ai-je mentionné que \luatex est en version bêta et que la version~1.0 est attendue au printemps 2014 ? Vous pouvez en apprendre davantage sur la feuille de route présentée sur le \href{http://luatex.org/}{site web de \luatex}. Des versions bêta stables sont publiées régulièrement et sont incluses dans \texlive depuis~2008, et dans \miktex depuis 2.9.
 %%
 
 Not surprisingly, support for \luatex in \latex is shiny new, which means it
@@ -419,18 +416,16 @@ written or updated, without keeping track of changes. Hopefully, you'll update
 your distribution as a whole so that you always get matching versions of this
 guide and the packages, formats and engine it describes.
 
-En règle générale, ce guide documente les choses telles qu'elles sont au moment où il est écrit ou mis à jour, sans tenir compte des changements. Nous espérons que vous mettrez à jour votre distribution dans son ensemble afin d'obtenir toujours des versions correspondantes de ce guide et des paquets, formats et moteur qu'il décrit.
+En règle générale, ce guide documente les choses telles qu'elles sont au moment où il est écrit ou mis à jour, sans tenir compte des changements. Nous espérons que vous mettrez à jour votre distribution dans son ensemble afin d'obtenir toujours des versions correspondantes de ce guide et des packages, formats et moteurs qu'il décrit.
 %%
 
 
 \selectlanguage{english}
-\section{Essential packages and practices}\label{essential}
+\section{Packages et pratiques essentiels}\label{essential}
 
-This section presents the packages you'll probably want to always load as a
-user, or that you should absolutely know about as a developer.
-
-Cette section présente les packages que vous voudrez sans doute toujours charger en tant qu'utilisateur, ou que vous devez absolument connaître en tant que développeur.
-%%
+Cette section présente les packages que vous voudrez sans doute toujours
+charger en tant qu'utilisateur, ou que vous devez absolument connaître
+en tant que développeur.
 
 \subsection{Niveau utilisateur}
 
@@ -462,7 +457,7 @@ use the ©\luatex@© prefix for internal macros, since primitive names never
 contain ©@©, but it might be confusing. Moreover, you're already using a
 unique prefix for internal macros in all of your packages, aren't you?
 
-Du côté de TeX, les séquences de contrôle commençant par ©\luatex© sont réservées aux primitives. Il est fortement recommandé de ne pas définir de telles séquences de contrôle, afin d'éviter les conflits de noms avec les futures versions de LuaTeX. Si vous souhaitez souligner qu'une macro est spécifique à LuaTeX, nous vous recommandons d'utiliser le préfixe ©\lua© (sans le ©tex© suivant). Il est possible d'utiliser le préfixe ©\luatex@© pour les macros internes, puisque les noms des primitives ne contiennent jamais ©@©, mais cela peut prêter à confusion. De plus, vous utilisez déjà un préfixe unique pour les macros internes dans tous vos paquets, n'est-ce pas?
+Du côté de TeX, les séquences de contrôle commençant par ©\luatex© sont réservées aux primitives. Il est fortement recommandé de ne pas définir de telles séquences de contrôle, afin d'éviter les conflits de noms avec les futures versions de LuaTeX. Si vous souhaitez souligner qu'une macro est spécifique à LuaTeX, nous vous recommandons d'utiliser le préfixe ©\lua© (sans le ©tex© suivant). Il est possible d'utiliser le préfixe ©\luatex@© pour les macros internes, puisque les noms des primitives ne contiennent jamais ©@©, mais cela peut prêter à confusion. De plus, vous utilisez déjà un préfixe unique pour les macros internes dans tous vos packages, n'est-ce pas?
 %%
 
 On the Lua end, please keep the global namespace as clean as possible. That
@@ -475,14 +470,14 @@ is a good and necessary practice to use ©local© for your internal variables an
 functions. Finally, to avoid clashes with future versions of \luatex, it is
 necessary to avoid modifying the namespaces of \luatex's default libraries.
 
-En ce qui concerne Lua, veuillez garder l'espace de noms global aussi propre que possible. En d'autres termes, utilisez une table ©mypackage© et placez toutes vos fonctions et objets publics dans cette table. Vous pouvez aussi éviter d'utiliser la fonction "module()" de Lua, qui est obsolète. D'autres stratégies pour la gestion des modules Lua sont discutées dans le chapitre~15 de "Programming in Lua", et des exemples sont donnés dans \file{luatexbase-modutils.pdf}. De plus, c'est une saine habitude d'utiliser ©local© pour vos variables et fonctions internes. Enfin, pour éviter tout conflit avec les futures versions de \luatex, il est nécessaire d'éviter de modifier les espaces de noms des bibliothèques par défaut de \luatex.
+En ce qui concerne Lua, veuillez garder l'espace de noms global aussi propre que possible. En d'autres termes, utilisez une table ©mypackage© et placez toutes vos fonctions et objets publics dans cette table. Vous pouvez aussi éviter d'utiliser la fonction \code{module()} de Lua, qui est obsolète. D'autres stratégies pour la gestion des modules Lua sont discutées dans le chapitre~15 de \emph{Programming in Lua}, et des exemples sont donnés dans \file{luatexbase-modutils.pdf}. De plus, c'est une saine habitude d'utiliser ©local© pour vos variables et fonctions internes. Enfin, pour éviter tout conflit avec les futures versions de \luatex, il est nécessaire d'éviter de modifier les espaces de noms des bibliothèques par défaut de \luatex.
 %%
 
 \subsubsection{Détection du moteur et du mode}\label{detect}
 
 Various packages allow to detect the engine currently processing the document.
 
-Plusieurs paquets permettent de détecter le moteur qui traite actuellement le document.
+Plusieurs packages permettent de détecter le moteur qui traite actuellement le document.
 %%
 
 \pkdesc{ifluatex}{\HO}{all}{\latex, Plain}{%
@@ -530,7 +525,7 @@ manage: the extended conventional \tex resources, catcode tables, attributes,
 callbacks, Lua modules loading and identification. It also provides basic
 tools to handle a few compatibility issues with older version of \luatex.
 
-Les formats Plain et \latex fournissent des macros pour gérer les ressources de base de \tex, comme les compteurs ou les registres de boîtes. \luatex introduit de nouvelles ressources qui doivent être partagées intelligemment par les paquets. Ce paquetage fournit les outils de base pour gérer: les ressources \tex conventionnelles étendues, les tables de catcodes, les attributs, les callbacks, le chargement et l'identification des modules Lua. Il fournit également des outils de base pour gérer quelques problèmes de compatibilité avec les anciennes versions de \luatex.
+Les formats Plain et \latex fournissent des macros pour gérer les ressources de base de \tex, comme les compteurs ou les registres de boîtes. \luatex introduit de nouvelles ressources qui doivent être partagées intelligemment par les packages. Ce package fournit les outils de base pour gérer: les ressources \tex conventionnelles étendues, les tables de catcodes, les attributs, les callbacks, le chargement et l'identification des modules Lua. Il fournit également des outils de base pour gérer quelques problèmes de compatibilité avec les anciennes versions de \luatex.
 %%
 
 \note{Warning} This package is currently in conflict with the \pk{luatex}
@@ -538,7 +533,7 @@ package, since they both do almost the same thing. The respective package
 authors are well aware of this situation and plan to somehow merge the two
 packages in the near future, though the timeline is not clear.
 
-\note{Attention:} Ce paquet est actuellement en conflit avec le paquet \pk{luatex}, puisqu'ils font quasiment la même chose. Les auteurs des deux packages sont bien conscients de cette situation et prévoient de les fusionner d'une manière ou d'une autre dans un avenir proche, bien que le calendrier ne soit pas encore fixé.
+\note{Attention:} Ce package est actuellement en conflit avec le package \pk{luatex}, puisqu'ils font quasiment la même chose. Les auteurs des deux packages sont bien conscients de cette situation et prévoient de les fusionner d'une manière ou d'une autre dans un avenir proche, bien que le calendrier ne soit pas encore fixé.
 %%
 
 \pkdesc{luatex}{\HO}{\luatex}{\latex, Plain}{%
@@ -565,7 +560,7 @@ encoding issues. A normal user should only use \pk{fontspec}, but a developer
 may need to know about them.
 
 
-Ces packages sont chargés par "fontspec" pour gérer certaines polices de bas niveau et les problèmes d'encodage. Un utilisateur normal ne devrait utiliser que "fontspec", mais un développeur peut avoir besoin de les connaître.
+Ces packages sont chargés par \pk{fontspec} pour gérer certaines polices de bas niveau et les problèmes d'encodage. Un utilisateur normal ne devrait utiliser que \pk{fontspec}, mais un développeur peut avoir besoin de les connaître.
 %%
 
 \pkdesc{luaotfload}{\ER, \KH \& \PHG}{\luatex}{\latex, Plain}{%
@@ -574,11 +569,10 @@ Low-level OpenType font loading, adapted from the generic subset of \context.
 Basically, it uses the ©fontloader© Lua library and the appropriate callbacks
 to implement a syntax for the ©\font© primitive very similar to that of \xetex
 and implement the corresponding font features. It also handles a font database
-for transparent access to fonts from the system and the \tex distribution
-either by family name or by file name, as well as a font cache for faster
-loading.
+for transparent access to fonts from the system and the \tex distribution either
+by family name or by file name, as well as a font cache for faster loading.
 
-Chargement de bas niveau des polices OpenType, adapté du code générique de ConTeXt. En gros, il utilise la bibliothèque Lua ©fontloader© et les callbacks correspondants pour implémenter une syntaxe pour la primitive ©\font© très similaire à celle de XeTeX et donner accès aux propriétés correspondantes des polices. Il gère également une base de données de polices pour un accès transparent aux polices du système et de la distribution TeX, soit par nom de famille, soit par nom de fichier, ainsi qu'un système de cache pour un chargement plus rapide des polices.
+Chargement de bas niveau des polices OpenType, adapté du code générique de ConTeXt. En gros, il utilise la bibliothèque Lua ©fontloader© et les callbacks correspondants pour implémenter une syntaxe pour la primitive ©\font© très similaire à celle de \xetex et donner accès aux propriétés correspondantes des polices. Il gère également une base de données de polices pour un accès transparent aux polices du système et de la distribution \tex, soit par nom de famille, soit par nom de fichier, ainsi qu'un système de cache pour un chargement plus rapide des polices.
 %%
 
 \pkdesc{euenc}{\WSPR, \ER \& \KH}{\xetex, \luatex}{\latex}{%
@@ -588,7 +582,7 @@ Currently, \xelatex is using ©EU1© and \lualatex is using ©EU2©. Includes
 definitions (\file{fd} files) for Latin Modern, the default font loaded by
 \pk{fontspec}.
 
-Implémente les encodages de polices Unicode ©EUx© pour le système fontenc de LaTeX. Actuellement, XeLaTeX utilise ©EU1© et LuaLaTeX utilise ©EU2©. Inclut les définitions (fichiers "fd") pour Latin Modern, la police chargée par défaut par "fontspec".
+Implémente les encodages de polices Unicode ©EUx© pour le système fontenc de \latex. Actuellement, \xelatex utilise ©EU1© et \lualatex utilise ©EU2©. Inclut les définitions (fichiers \file{fd}) pour Latin Modern, la police chargée par défaut par \pk{fontspec.
 %%
 
 To be precise, \pf{euenc} merely declares the encoding, but
@@ -598,12 +592,12 @@ doesn't provide definitions for LICR macros; this is done by loading
 have distinct names so that different \file{fd} files can be used according to
 the engine (which is actually the case with Latin Modern).
 
-Pour être précis, "euenc" déclare simplement l'encodage, mais ne fournit pas de définitions pour les macros LICR; ceci est fait en chargeant "xunicode" avec ©\UTFencname© défini à ©EU1© ou ©EU2©, ce que fait "fontspec". Les encodages réels sont les mêmes, mais il est utile d'avoir des noms distincts pour que différents fichiers "fd" puissent être utilisés selon le moteur (ce qui est en fait le cas avec Latin Modern).
+Pour être précis, \pf{euenc} déclare simplement l'encodage, mais ne fournit pas de définitions pour les macros LICR; ceci est fait en chargeant \pk{xunicode} avec ©\UTFencname© défini à ©EU1© ou ©EU2©, ce que fait \pk{fontspec}. Les encodages réels sont les mêmes, mais il est utile d'avoir des noms distincts pour que différents fichiers \file{fd} puissent être utilisés selon le moteur (ce qui est en fait le cas avec Latin Modern).
 %%
 
 \section{Autres packages}\label{other}
 
-Notez que les paquets sont listés sans ordre particulier.
+Notez que les packages sont listés sans ordre particulier.
 
 \subsection{Niveau utilisateur}
 
@@ -613,7 +607,7 @@ Loads usual packages, currently \pk{fontspec}, \pk{luacode}, \pf{metalogo}
 (commands for logos, including ©\LuaTeX© and ©\LuaLaTeX©), \pk{luatexbase},
 \pk{lualibs}, \pf{fixltx2e} (fixes and enhancements for the \latex core).
 
-Charge les packages habituels, actuellement "fontspec", "luacode", "metalogo" (commandes pour les logos, y compris ©\LuaTeX© et ©\LuaLaTeX©), "luatexbase", "lualibs", "fixltx2e" (corrections et améliorations pour le noyau LaTeX).
+Charge les packages habituels, actuellement \pk{fontspec}, \pk{luacode}, \pf{metalogo} (commandes pour les logos, y compris ©\LuaTeX© et ©\LuaLaTeX©), \pk{luatexbase}, \pk{lualibs}, \pf{fixltx2e} (corrections et améliorations pour le noyau \latex).
 %%
 
 \pkdesc{luacode}{\MPG}{\luatex}{\latex}{%
@@ -631,7 +625,7 @@ with the fonts). Already presented in the introduction. When running \xetex,
 just loads \pf{xetex-inputenc}; under \pdftex, loads the standard
 \pf{inputenc}.
 
-Aide à la compilation de documents reposant sur des encodages anciens (soit dans le source, soit avec les polices). Déjà présenté dans l'introduction. Sous XeTeX, charge simplement \pf{xetex-inputenc}; sous \pdftex, charge l'\pf{inputenc} standard.
+Aide à la compilation de documents reposant sur des encodages anciens (soit dans le source, soit avec les polices). Déjà présenté dans l'introduction. Sous \xetex, charge simplement \pf{xetex-inputenc}; sous \pdftex, charge l'\pf{inputenc} standard.
 %%
 
 \pkdesc{luamplib}{\HH, \Taco \& \PHG}{\luatex}{\latex, Plain}{%
@@ -639,7 +633,7 @@ Aide à la compilation de documents reposant sur des encodages anciens (soit dan
 Provides a nice interface for the ©mplib© Lua library that embeds metapost in
 \luatex.
 
-Fournit une interface conviviale pour la bibliothèque Lua mplib qui intègre metapost dans LuaTeX.
+Fournit une interface conviviale pour la bibliothèque Lua ©mplib© qui intègre metapost dans \luatex.
 %%
 
 \pkdesc{luacolor}{\HO}{\luatex}{\latex}{%
@@ -660,7 +654,7 @@ removed (those that are sort of superseded by Lua) or renamed. This package
 provides them with consistent names across engines, including \xetex which
 recently implemented some of these primitives, such as ©\strcmp©.
 
-Bien que LuaTEX soit principalement un sur-ensemble de pdfTEX, quelques primitives utilitaires ont été supprimées (celles qui sont en quelque sorte remplacées par Lua) ou renommées. Ce paquetage les fournit avec des noms cohérents entre les différents moteurs, y compris \xetex qui a récemment implémenté certaines de ces primitives, comme ©\strcmp©.
+Bien que \luatex soit principalement un sur-ensemble de \pdftex, quelques primitives utilitaires ont été supprimées (celles qui sont en quelque sorte remplacées par Lua) ou renommées. Ce package les fournit avec des noms cohérents entre les différents moteurs, y compris \xetex qui a récemment implémenté certaines de ces primitives, comme ©\strcmp©.
 %
 
 \pkdesc{magicnum}{\HO}{\luatex, \pdftex, \xetex}{\latex, Plain}{%
@@ -767,7 +761,7 @@ Le raisonnement, copié-collé du fichier \file{lualatexiniconfig.tex} qui impl�
 
 - Toutes les primitives traitant des mathématiques Unicode commencent déjà par ©\U©, et correspondront peut-être aux noms des primitives \xetex. les noms des primitives \xetex un jour, donc peut-être que la préfixation n'était ni nécessaire ni souhaitable pour elles. Cependant, nous avons essayé de rendre la règle de préfixage aussi simple que possible, afin de ne pas aggraver le point précédent.
 
-- Peut-être qu'un jour nous penserons qu'il est préférable de fournir toutes les primitives sans préfixe. Si cela se produit, il sera facile d'ajouter les primitives non préfixées dans le format tout en conservant les noms préfixés pour la compatibilité. Cela ne fonctionnerait pas dans l'autre sens; c'est-à-dire que si l'on réalisait tardivement que nous ne devrions pas fournir de primitives sans préfixe, cela casserait tous les packages spécifiques à \luatex qui auront été écrits.
+- Peut-être qu'un jour nous penserons qu'il est préférable de fournir toutes les primitives sans préfixe. Si cela se produit, il sera facile d'ajouter les primitives non préfixées dans le format tout en conservant les noms préfixés pour la compatibilité. Ce serait beaucoup plus problématique dans l'autre sens: si l'on réalisait tardivement qu'il vaudrait mieux ne pas fournir de primitives sans préfixe, cela casserait tous les packages spécifiques à \luatex qui auront été écrits.
 %%
 
 \para{\cs{jobname}}[jobname]
@@ -848,7 +842,7 @@ use any non-ASCII character for short verbatim with \pf{fancyvrb}, etc.
 Le \latex conventionnel offre un certain niveau de support pour UTF-8 dans les fichiers d'entrée. Cependant, à bas niveau, les caractères non-ASCII ne sont pas atomiques dans ce cas: ils sont constitués de plusieurs morceaux élémentaires (connus sous le nom de \emph{tokens} par les \tex{}niciens). Par conséquent, certains packages qui analysent le texte caractère par caractère ou effectuent d'autres opérations atomiques sur les caractères (comme la modification de leurs \emph{catcodes}) ont souvent des problèmes avec UTF-8 en \latex conventionnel. Par exemple, vous ne pouvez pas utiliser n'importe quel caractère non-ASCII pour le verbatim court avec \pf{fancyvrb}, etc.
 %%
 
-La bonne nouvelle est qu'avec \lualatex, certaines des fonctionnalités de ces paquets
+La bonne nouvelle est qu'avec \lualatex, certaines des fonctionnalités de ces packages
 commencent à fonctionner sur des caractères Unicode arbitraires sans avoir besoin de
 modifier le package. La mauvaise nouvelle est que ce n'est pas toujours vrai.
 Voir la section suivante pour plus de détails.
@@ -879,7 +873,7 @@ checks for \xetex only. However, \pk{fontspec} uses a trick to load it anyway.
 So, you can't load it explicitly, but you don't need to, since \pk{fontspec}
 already took care of it.
 
-La principale fonctionnalité du package \pf{xunicode} est de s'assurer que les séquences de contrôle habituelles pour les caractères non-ASCII (comme ©\'e©) font ce qu'il faut dans un contexte Unicode. Il pourrait probablement fonctionner avec \luatex, mais ne vérifie explicitement que pour \xetex. Cependant, \pk{fontspec} utilise une astuce pour le charger de toutes façons. Donc, vous ne pouvez pas le charger explicitement, mais vous n'en avez pas besoin, puisque \pk{fontspec} s'en est déjà occupé.
+La principale fonctionnalité du package \pf{xunicode} est de s'assurer que les séquences de contrôle habituelles pour les caractères non-ASCII (comme ©\'e©) font ce qu'il faut dans un contexte Unicode. Il pourrait \emph{probablement} fonctionner avec \luatex, mais ne vérifie explicitement que pour \xetex. Cependant, \pk{fontspec} utilise une astuce pour le charger de toutes façons. Donc, vous ne pouvez pas le charger explicitement, mais vous n'en avez pas besoin, puisque \pk{fontspec} s'en est déjà occupé.
 %%
 
 \para{encodings}
@@ -948,7 +942,7 @@ anyway. However, not everything is already ported to the shiny new world of
 Unicode, so you may have a more limited (or just different) set of choices
 available for some time (this is especially true for fonts).
 
-Les packages jouant avec les encodages d'entrée (fichiers sources) ou de sortie (polices) sont très susceptibles de ne pas fonctionner avec \luatex. Cela inclut \pf{inputenc}, \pf{fontenc}, \pf{textcomp}, et probablement la plupart des packages de polices classiques tels que \pf{mathptmx} ou \pf{fourier}. La bonne nouvelle est qu'Unicode est un moyen plus puissant de gérer les problèmes d'encodage que les anciens paquets essayaient de résoudre, donc vous n'avez probablement plus besoin de ces paquets. Cependant, tout n'a pas encore été porté dans le nouveau monde merveilleux d'Unicode, et il se peut que vous ayez un choix plus limité (ou simplement différent) pendant un certain temps (ceci est particulièrement vrai pour les polices).
+Les packages jouant avec les encodages d'entrée (fichiers sources) ou de sortie (polices) sont très susceptibles de ne pas fonctionner avec \luatex. Cela inclut \pf{inputenc}, \pf{fontenc}, \pf{textcomp}, et probablement la plupart des packages de polices classiques tels que \pf{mathptmx} ou \pf{fourier}. La bonne nouvelle est qu'Unicode est un moyen plus puissant de gérer les problèmes d'encodage que les anciens packages essayaient de résoudre, donc vous n'avez probablement plus besoin de ces packages. Cependant, tout n'a pas encore été porté dans le nouveau monde merveilleux d'Unicode, et il se peut que vous ayez un choix plus limité (ou simplement différent) pendant un certain temps (ceci est particulièrement vrai pour les polices).
 %%
 
 \para{spaces} Spaces in file names are not really well supported in the \tex
