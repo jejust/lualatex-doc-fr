@@ -165,7 +165,7 @@ Il n'y a que trois différences:
   \item Ne chargez pas \pf{inputenc}, encodez simplement votre source en UTF-8.
   \item Ne chargez pas \pf{fontenc} ni \pf{textcomp}, mais chargez \pf{fontspec}
      à la place.
-  \item \pf{babel} fonctionne avec \lualatex{} mais vous pouvez charger \pf{polyglossia}
+  \item \pf{babel} fonctionne avec \lualatex mais vous pouvez charger \pf{polyglossia}
      à la place.
   \item N'utilisez pas de package qui change les polices, mais utilisez les commandes
     de \pf{fontspec} à la place.
@@ -184,7 +184,7 @@ police de votre système d'exploitation (en plus de celles de votre distribution
 y compris les polices TrueType et OpenType, et avoir accès à leurs fonctionnalités
 les plus avancées. Cela signifie qu'il est désormais facile d'installer n'importe
 quelle police moderne que vous pouvez télécharger ou acheter auprès d'un éditeur,
-de les utiliser avec \lualatex{} et de bénéficier de tout leur potentiel.
+de les utiliser avec \lualatex et de bénéficier de tout leur potentiel.
 
 Passons maintenant aux mauvaises nouvelles: il n'est pas toujours facile d'obtenir
 une liste de toutes les polices disponibles. Sous Windows avec \texlive, l'outil
@@ -256,7 +256,8 @@ Par exemple,
 \begin{Verbatim}
   approximation standard de $\pi = \directlua{tex.sprint(math.pi)}$
 \end{Verbatim}
-imprime \og{}approximation standard de $\pi = \directlua{tex.sprint(math.pi)}$\fg dans votre document. Vous voyez comme il est facile de mélanger du \tex et du Lua?
+affiche \og{}approximation standard de $\pi = \directlua{tex.sprint(math.pi)}$\fg
+dans votre document. Vous voyez comme il est facile d'entremêler du \tex et du Lua?
 
 En fait, il y a quelques pièges. Regardons d'abord le passage de Lua vers \tex,
 c'est le plus simple (puisqu'il s'agit davantage de Lua que de \tex).
@@ -342,38 +343,32 @@ Ensuite, lorsque vous aurez du mal à comprendre pourquoi un appel particulier
 de la commande par ©\directluadebug©, compilez comme d'habitude et regardez
 dans le fichier \file{luadebug.lua} ce que l'interpréteur Lua a réellement lu.
 
-
-The \pk{luacode} package provides commands and environments that help to
-varying degrees with some of these problems. However, for everything but
-trivial pieces of Lua code, it is wiser to use an external file containing
-only Lua code defining functions, then load it and use its functions. For
-example:
-
-Le package \pk{luacode} fournit des commandes et des environnements qui aident de différentes façons à résoudre certains de ces problèmes. Cependant, dès que le code Lua utilisé n'est plus trivial, il est plus sage d'utiliser un fichier externe contenant uniquement du code Lua définissant des fonctions, puis de le charger et d'appeler ses fonctions depuis le document LuaTeX. Par exemple:
+Le package \pk{luacode} fournit des commandes et des environnements qui aident
+de différentes façons à résoudre certains de ces problèmes. Cependant, dès que
+le code Lua utilisé n'est plus trivial, il est plus sage d'utiliser un fichier
+externe contenant uniquement du code Lua définissant des fonctions,
+puis de le charger et d'appeler ses fonctions depuis le document \luatex.
+Par exemple:
 %%
 \begin{Verbatim}
   \directlua{dofile("mes-functions-lua.lua")}
   \newcommand*{\macrogeniale}[2]{%
     \directlua{ma_fonction_geniale("\luatexluaescapestring{#1}", #2)}}
 \end{Verbatim}
-The example assumes that ©my_great_function© is defined in
-©my-lua-functions.lua© and takes a string and a number as arguments. Notice
-that we carefully use the ©\luatexluaescapestring© primitives on the string
-argument to escape any backslash or double-quote it might contain and which
-would confuse the Lua parser.\footnote{If you ever used SQL then the concept
-  of escaping strings is hopefully not new to you.}
 
-L'exemple suppose que ©ma_fonction_geniale© est définie dans ©mes-fonctions-lua.lua© et prend une chaîne de caractères et un nombre comme arguments. Remarquez que nous utilisons soigneusement les primitives ©\luatexluaescapestring© sur l'argument chaîne de caractères afin d'échapper à toute barre oblique inverse ou double-citation qu'il pourrait contenir et qui pourrait perturber l'analyseur syntaxique Lua.\footnote{Si vous avez déjà utilisé SQL, le concept d'échappement des chaînes de caractères n'est pas nouveau pour vous.}
-%%
+L'exemple suppose que ©ma_fonction_geniale© est définie dans ©mes-fonctions-lua.lua©
+et prend une chaîne de caractères et un nombre comme arguments. Remarquez que nous
+prenons soin d'utiliser la primitive ©\luatexluaescapestring© sur la chaîne de
+caractères passée en argument, afin de protéger tout anti-slash ou guillemets doubles
+qu'elle pourrait contenir et qui pourraient perturber l'analyseur syntaxique de
+Lua.\footnote{Si vous avez déjà utilisé SQL, le concept de protection (ou échappement)
+  des chaînes de caractères devrait vous être familier.}
 
 \medskip
 
-That's all concerning Lua in \tex. If you're wondering why
-©\luatexluaescapestring© has such a long and silly name, you might want to
-read the next section.
-
-C'est tout pour ce qui concerne Lua dans TeX. Maintenant, si vous vous demandez pourquoi ©\luatexluaescapestring© a un nom aussi ridiculement long, lisez la section suivante.
-%%
+C'est tout pour ce qui concerne Lua dans \tex. Maintenant, si vous vous
+demandez pourquoi ©\luatexluaescapestring© a un nom aussi ridiculement long,
+lisez la section suivante.
 
 \subsection{Autres choses à savoir}\label{things}
 
@@ -381,43 +376,37 @@ Avant toute chose, mentionnons que le manuel \luatex, \file{luatexref-t.pdf},
 est une excellente source d'informations sur \luatex et vous voudrez probablement
 le consulter à un moment ou à un autre (bien qu'il soit un peu aride et technique).
 
-It is important to know that the name of the new primitives of \luatex as you
-read them in the manual are not the actual names you'll be able to use in
-\lualatex. To prevent clashes with existing macro names, all new primitives
-have been prefixed with ©\luatex© unless they already start with it, so
-©\luaescapestring© becomes ©\luatexluaescapetring© while ©\luatexversion©
-remains ©\luatexversion©. The rationale is detailed in section~\ref{formats}.
-
-Il est important de savoir que les noms des nouvelles primitives de LuaTeX tels que vous les lisez dans le manuel ne sont pas les noms réels que vous pourrez utiliser dans LuaLaTeX. Pour éviter les conflits avec les noms de macros existants, toutes les nouvelles primitives ont été préfixées par ©\luatex©, à moins qu'elles ne commencent déjà par ce nom. Ainsi, ©\luaescapestring© devient ©\luatexluaescapetring©, tandis que ©\luatexversion© reste ©\luatexversion©. Le raisonnement est détaillé dans la section~\ref{formats}.
-%%
+Il est important de noter que les noms des nouvelles primitives de \luatex tels
+que vous les lisez dans le manuel ne sont pas les noms réels que vous pourrez
+utiliser dans \lualatex. En effet, pour éviter des conflits avec les noms de macros
+existants, toutes les nouvelles primitives ont été préfixées par ©\luatex©,
+à moins qu'elles ne commencent déjà par ce terme. Ainsi, ©\luaescapestring©
+devient ©\luatexluaescapetring©, tandis que ©\luatexversion© reste ©\luatexversion©.
+Le raisonnement est détaillé dans la section~\ref{formats}.
 
 \medskip
 
-Oh, and by the way, did I mention that \luatex is in beta and version~1.0 is
-expected in spring 2014? You can learn more on the roadmap page of
-\href{http://luatex.org/}{the \luatex site}. Stable betas are released
-regularly and are included in \texlive since 2008 and \miktex since 2.9.
+Oh, et au fait, ai-je mentionné que \luatex est en version bêta et que
+la version~1.0 est attendue pour le printemps~2014? Vous pourrez en apprendre
+davantage en lisant la feuille de route présentée sur le
+\href{http://luatex.org/}{site web de \luatex}. Des versions bêta stables
+sont publiées régulièrement et sont incluses dans \texlive depuis~2008,
+et dans \miktex depuis 2.9.
 
-Oh, et au fait, ai-je mentionné que \luatex est en version bêta et que la version~1.0 est attendue au printemps 2014 ? Vous pouvez en apprendre davantage sur la feuille de route présentée sur le \href{http://luatex.org/}{site web de \luatex}. Des versions bêta stables sont publiées régulièrement et sont incluses dans \texlive depuis~2008, et dans \miktex depuis 2.9.
-%%
+Le support de \luatex dans \latex est tout nouveau, ce qui signifie qu'il peut
+être bourré de bugs et que les choses peuvent encore changer à tout moment.
+Il est donc important de garder votre distribution \tex bien à jour pour avoir
+les corrections de bugs\footnote{For \texlive, consider using the complementary
+  \href{http://tlcontrib.metatex.org/}{tlcontrib} repository.} et éviter
+d'utiliser \lualatex pour des documents critiques, au moins pendant un certain temps
+(pour ne pas rencontrer un nouveau bug au mauvais moment).
 
-Not surprisingly, support for \luatex in \latex is shiny new, which means it
-may be full of (shiny) bugs, and things may change at any point. You might
-want to keep your \tex distribution very up-to-date\footnote{For \texlive,
-  consider using the complementary
-  \href{http://tlcontrib.metatex.org/} {tlcontrib} repository.} and also avoid
-using \lualatex for critical documents at least for some time.
-
-Le support de \luatex dans \latex est tout nouveau, ce qui signifie qu'il peut être bourré de bugs et que les choses peuvent encore changer à tout moment. Il est donc important de garder votre distribution TeX bien à jour pour avoir les corrections de bugs\footnote{For \texlive, consider using the complementary \href{http://tlcontrib.metatex.org/}{tlcontrib} repository.} et éviter d'utiliser LuaLaTeX pour des documents critiques, au moins pendant un certain temps (pour ne pas rencontrer un nouveau bug au mauvais moment).
-%%
-
-As a general rule, this guide documents things as they are at the time it is
-written or updated, without keeping track of changes. Hopefully, you'll update
-your distribution as a whole so that you always get matching versions of this
-guide and the packages, formats and engine it describes.
-
-En règle générale, ce guide documente les choses telles qu'elles sont au moment où il est écrit ou mis à jour, sans tenir compte des changements. Nous espérons que vous mettrez à jour votre distribution dans son ensemble afin d'obtenir toujours des versions correspondantes de ce guide et des packages, formats et moteurs qu'il décrit.
-%%
+De façon générale, ce guide documente les choses telles qu'elles sont au moment
+précis où il est écrit (ou mis à jour), sans tenir compte des changements
+éventuellement déjà prévus. Nous espérons que vous mettrez à jour votre
+distribution dans son ensemble afin d'avoir toujours des versions
+qui se correspondent entre ce guide et les packages, formats et moteurs
+qu'il décrit.
 
 
 \selectlanguage{english}
@@ -457,7 +446,7 @@ use the ©\luatex@© prefix for internal macros, since primitive names never
 contain ©@©, but it might be confusing. Moreover, you're already using a
 unique prefix for internal macros in all of your packages, aren't you?
 
-Du côté de TeX, les séquences de contrôle commençant par ©\luatex© sont réservées aux primitives. Il est fortement recommandé de ne pas définir de telles séquences de contrôle, afin d'éviter les conflits de noms avec les futures versions de LuaTeX. Si vous souhaitez souligner qu'une macro est spécifique à LuaTeX, nous vous recommandons d'utiliser le préfixe ©\lua© (sans le ©tex© suivant). Il est possible d'utiliser le préfixe ©\luatex@© pour les macros internes, puisque les noms des primitives ne contiennent jamais ©@©, mais cela peut prêter à confusion. De plus, vous utilisez déjà un préfixe unique pour les macros internes dans tous vos packages, n'est-ce pas?
+Du côté de \tex, les séquences de contrôle commençant par ©\luatex© sont réservées aux primitives. Il est fortement recommandé de ne pas définir de telles séquences de contrôle, afin d'éviter les conflits de noms avec les futures versions de \luatex. Si vous souhaitez souligner qu'une macro est spécifique à \luatex, nous vous recommandons d'utiliser le préfixe ©\lua© (sans le ©tex© suivant). Il est possible d'utiliser le préfixe ©\luatex@© pour les macros internes, puisque les noms des primitives ne contiennent jamais ©@©, mais cela peut prêter à confusion. De plus, vous utilisez déjà un préfixe unique pour les macros internes dans tous vos packages, n'est-ce pas?
 %%
 
 On the Lua end, please keep the global namespace as clean as possible. That
@@ -475,10 +464,7 @@ En ce qui concerne Lua, veuillez garder l'espace de noms global aussi propre que
 
 \subsubsection{Détection du moteur et du mode}\label{detect}
 
-Various packages allow to detect the engine currently processing the document.
-
-Plusieurs packages permettent de détecter le moteur qui traite actuellement le document.
-%%
+Plusieurs packages permettent d'identifier le moteur qui traite actuellement le document.
 
 \pkdesc{ifluatex}{\HO}{all}{\latex, Plain}{%
   macros/latex/contrib/oberdiek/}
@@ -511,7 +497,7 @@ advanced feature such as Unicode and modern font formats. The ©\ifpdf© switch
 is true if and only if you are running \pdftex-or-\luatex in PDF mode (note
 that this doesn't include \xetex, whose support for PDF is different).
 
-Fournit le commutateur ©\ifpdf©. LuaTeX, comme pdfTeX, peut produire une sortie PDF ou DVI; cette dernière n'est pas très utile avec LuaTeX car elle ne supporte aucune fonctionnalité avancée telle que l'Unicode et les formats de police modernes. Le commutateur ©\ifpdf© est vrai si et seulement si vous exécutez pdfTEX-ou-LuaTEX en mode PDF (notez que cela n'inclut pas XeTeX, dont le support pour PDF est différent).
+Fournit le commutateur ©\ifpdf©. \luatex, comme \pdftex, peut produire une sortie PDF ou DVI; cette dernière n'est pas très utile avec \luatex car elle ne supporte aucune fonctionnalité avancée telle que l'Unicode et les formats de police modernes. Le commutateur ©\ifpdf© est vrai si et seulement si vous exécutez \pdftex-ou-\luatex en mode PDF (notez que cela n'inclut pas \xetex, dont le support pour PDF est différent).
 %%
 
 \subsubsection{Ressources de base}
@@ -550,7 +536,7 @@ Collection of Lua libraries and additions to the standard libraries; mostly
 derived from the \context libraries. If you need a basic function that Lua
 doesn't provide, check this package before rolling your own implementation.
 
-Collection de bibliothèques Lua et d'ajouts aux bibliothèques standards; principalement dérivées des bibliothèques \context. Si vous avez besoin d'une fonction de base que Lua ne fournit pas, consultez ce package avant de développer votre propre implémentation.
+Collection de bibliothèques Lua et d'ajouts aux bibliothèques standards; principalement dérivées des bibliothèques \context. Si vous avez besoin d'une fonction de base que Lua ne fournit pas, consultez ce package avant de vous lancer dans votre propre développement.
 %%
 
 \subsubsection{Gestion interne des polices de caractères}\label{fontint}
@@ -572,7 +558,7 @@ and implement the corresponding font features. It also handles a font database
 for transparent access to fonts from the system and the \tex distribution either
 by family name or by file name, as well as a font cache for faster loading.
 
-Chargement de bas niveau des polices OpenType, adapté du code générique de ConTeXt. En gros, il utilise la bibliothèque Lua ©fontloader© et les callbacks correspondants pour implémenter une syntaxe pour la primitive ©\font© très similaire à celle de \xetex et donner accès aux propriétés correspondantes des polices. Il gère également une base de données de polices pour un accès transparent aux polices du système et de la distribution \tex, soit par nom de famille, soit par nom de fichier, ainsi qu'un système de cache pour un chargement plus rapide des polices.
+Chargement de bas niveau des polices OpenType, adapté du code générique de \context. En gros, il utilise la bibliothèque Lua ©fontloader© et les callbacks correspondants pour implémenter une syntaxe pour la primitive ©\font© très similaire à celle de \xetex et donner accès aux propriétés correspondantes des polices. Il gère également une base de données de polices pour un accès transparent aux polices du système et de la distribution \tex, soit par nom de famille, soit par nom de fichier, ainsi qu'un système de cache pour un chargement plus rapide des polices.
 %%
 
 \pkdesc{euenc}{\WSPR, \ER \& \KH}{\xetex, \luatex}{\latex}{%
@@ -630,10 +616,10 @@ Aide à la compilation de documents reposant sur des encodages anciens (soit dan
 
 \pkdesc{luamplib}{\HH, \Taco \& \PHG}{\luatex}{\latex, Plain}{%
   macros/luatex/generic/luamplib/}[https://github.com/lualatex/luamplib]
-Provides a nice interface for the ©mplib© Lua library that embeds metapost in
+Provides a nice interface for the ©mplib© Lua library that embeds MetaPost in
 \luatex.
 
-Fournit une interface conviviale pour la bibliothèque Lua ©mplib© qui intègre metapost dans \luatex.
+Fournit une interface conviviale pour la bibliothèque Lua ©mplib© qui intègre MetaPost dans \luatex.
 %%
 
 \pkdesc{luacolor}{\HO}{\luatex}{\latex}{%
@@ -642,7 +628,7 @@ Changes low-level color implementation to use \luatex attributes in place of
 whatsits. This makes the implementation more robust and fixes strange bugs
 such as wrong alignment when ©\color© happens at the beginning of a ©\vbox©.
 
-Change l'implémentation de bas niveau des couleurs pour utiliser les attributs \luatex à la place des \emph{whatsits} (\oféléments extraordinaires\fg). Cela rend l'implémentation plus robuste et corrige des bugs bizarres tels qu'un mauvais alignement lorsque ©\color© se trouve au début d'un ©\vbox©.
+Change l'implémentation de bas niveau des couleurs pour utiliser les attributs \luatex à la place des \emph{whatsits} (\og{}éléments extraordinaires\fg{}). Cela rend l'implémentation plus robuste et corrige des bugs bizarres tels qu'un mauvais alignement lorsque ©\color© se trouve au début d'un ©\vbox©.
 %%
 
 \subsection{Niveau développeur}
@@ -692,7 +678,7 @@ manual. In the \cmd{luatex} format (that is, \luatex with the Plain format),
 primitives are available with their natural name, but also with the prefixed
 name, in order to ease development of generic packages.
 
-Comme mentionné dans la section~\ref{things}, les noms des primitives spécifiques à \luatex ne sont pas les mêmes dans le format luatex que dans le manuel de \luatex. Dans le format luatex (c'est-à-dire LuaTeX avec le format Plain), les primitives sont disponibles avec leur nom naturel, mais aussi avec le nom préfixé, afin de faciliter le développement de packages génériques.
+Comme mentionné dans la section~\ref{things}, les noms des primitives spécifiques à \luatex ne sont pas les mêmes dans le format luatex que dans le manuel de \luatex. Dans le format \cmd{luatex} (c'est-à-dire \luatex avec le format Plain), les primitives sont disponibles avec leur nom naturel, mais aussi avec le nom préfixé, afin de faciliter le développement de packages génériques.
 %%
 
 The rationale, copy-pasted from the file \file{lualatexiniconfig.tex} that
@@ -891,7 +877,7 @@ This item isn't exactly about working or not working, but rather about not
 working in exactly the same way as \pdftex or \xetex: you may observe minor
 differences in the layout and hyphenation of your text.
 
-Ce point ne parle pas exactement du fait que cela fonctionne ou non, mais plutôt du fait que cela ne fonctionne pas exactement de la même manière que \pdftex ou \xetex: vous pouvez observer des différences mineures dans la mise en page et la césure de votre texte.
+Ce point ne parle pas exactement du fait que cela fonctionne ou non, mais plutôt que cela ne fonctionne pas exactement de la même manière que \pdftex ou \xetex: vous pouvez observer des différences mineures dans la mise en page et les coupures de mots de votre texte.
 %%
 
 They may be due variations between two versions of the same font used by the
