@@ -629,35 +629,58 @@ ceci pour le format \cmd{lualatex}, est le suivant:
   \begin{enumerate}
     \item All current macro packages run smoothly on top of pdf(e)TeX, so
       those primitives are left untouched.
+
+1. Tous les packages de macros actuels fonctionnent sans problème par dessus pdf(e)TeX, donc ces primitives sont conservées telles quelles.
+
+
     \item Other non-TeX82 primitives in \luatex may cause name clashes with
       existing macros in macro packages, especially when they use very
       ``natural'' names such as ©\outputbox©, ©\mathstyle© etc. Such a
       probability for name clashes is undesirable, since the most existing
       LaTeX documents that run without change under \luatex, the better.
+
+2. D'autres primitives (ne datant pas de TeX82) dans \luatex peuvent provoquer des conflits de noms avec des macros existantes dans les packages de macros, en particulier lorsqu'elles utilisent des noms très \og{}naturels\fg{} tels que ©\outputbox©, ©\mathstyle©, etc. La probabilité d'un tel conflit de noms est importante et ce n'est pas souhaitable, car plus les documents \latex existants fonctionneront dans leur état actuel sous \luatex, mieux ce sera.
+
+
     \item The \luatex team doesn't want to apply a systematic prefixing policy,
       but kindly provided a tool allowing prefixes to be applied. So we chose
       to use it.  Previously, we even disabled the extra primitives, but now
       we feel it's better to enable them with systematic prefixing, in order
       to avoid that each and every macro package (or user) enables them with
       various and inconsistent prefixes (including the empty prefix).
+
+3. L'équipe \luatex ne souhaite pas appliquer une politique de préfixage systématique, mais a gentiment fourni un outil permettant d'appliquer des préfixes. Nous avons donc choisi de l'utiliser. Auparavant, nous avions même désactivé les primitives supplémentaires, mais maintenant nous pensons qu'il est préférable de les activer avec un préfixe systématique, afin d'éviter que chaque package (ou chaque utilisateur) les active avec des préfixes variés et incohérents (y compris avec un préfixe vide).
+
     \item The ©luatex© prefix was chosen since it is already used as a prefix
       for some primitives, such as ©\luatexversion©: this way, those
       primitives don't end up with a double prefix (for details, see
       ©tex.enableprimitives© in the \luatex manual).
+
+4. Le préfixe ©luatex© a été choisi car il est déjà utilisé comme préfixe pour certaines primitives, comme ©\luatexversion©: de cette façon, ces primitives ne se retrouvent pas avec un double préfixe (pour plus de détails, voir ©tex.enableprimitives© dans le manuel \luatex).
+
     \item The ©\directlua© primitive is provided both with its natural name
       (allowing easy detection of \luatex) and a prefixed version
       ©\luatexdirectlua© (for consistency with ©\luatexlatelua©).
-    \item Various remarks:
+
+5. La primitive ©\directlua© est fournie à la fois avec son nom naturel (permettant une détection facile de \luatex) et une version préfixée ©\luatexdirectlua© (par souci de cohérence avec ©\luatexlatelua©).
+
+    \item Remarques diverses:
       \begin{itemize}
         \item The obvious drawback of such a prefixing policy is that the
           names used by \latex or generic macro writer won't match the names
           used in the manual.  We hope this is compensated by the gain in
           backwards compatibility.
+
+- L'inconvénient évident d'une telle politique de préfixage est que les noms utilisés par \latex ou l'outil d'écriture de macros génériques ne correspondront pas aux noms utilisés dans le manuel. Nous espérons que cet inconvénient est compensé par le gain en compatibilité ascendante.
+
         \item All primitives dealing with Unicode math already begin with ©\U©,
           and maybe will match the names of \xetex primitives some day, so
           maybe prefixing was not necessary/desirable for them. However, we
           tried to make the prefixing rule as simple as possible, so that
           the previous point doesn't get even worse.
+
+- Toutes les primitives traitant des mathématiques Unicode commencent déjà par ©\U©, et correspondront peut-être aux noms des primitives \xetex. les noms des primitives \xetex un jour, donc peut-être que la préfixation n'était ni nécessaire ni souhaitable pour elles. Cependant, nous avons essayé de rendre la règle de préfixage aussi simple que possible, afin de ne pas aggraver le point précédent.
+
         \item Maybe some day we'll feel it's better to provide all primitives
           without prefixing. If this happens, it will be easy to add the
           unprefixed primitives in the format while keeping the prefixed names
@@ -665,29 +688,12 @@ ceci pour le format \cmd{lualatex}, est le suivant:
           belatedly realizing that we should not provide the unprefixed
           primitives would then break any \luatex-specific macro packages
           that had been written.
+
+- Peut-être qu'un jour nous penserons qu'il est préférable de fournir toutes les primitives sans préfixe. Si cela se produit, il sera facile d'ajouter les primitives non préfixées dans le format tout en conservant les noms préfixés pour la compatibilité. Ce serait beaucoup plus problématique dans l'autre sens: si l'on réalisait tardivement qu'il vaudrait mieux ne pas fournir de primitives sans préfixe, cela casserait tous les packages spécifiques à \luatex qui auront été écrits.
+
       \end{itemize}
   \end{enumerate}
 \end{myquote}
-
-1. Tous les packages de macros actuels fonctionnent sans problème par dessus pdf(e)TeX, donc ces primitives sont conservées telles quelles.
-
-2. D'autres primitives (ne datant pas de TeX82) dans \luatex peuvent provoquer des conflits de noms avec des macros existantes dans les packages de macros, en particulier lorsqu'elles utilisent des noms très \og{}naturels\fg{} tels que ©\outputbox©, ©\mathstyle©, etc. La probabilité d'un tel conflit de noms est importante et ce n'est pas souhaitable, car plus les documents \latex existants fonctionneront dans leur état actuel sous \luatex, mieux ce sera.
-
-3. L'équipe \luatex ne souhaite pas appliquer une politique de préfixage systématique, mais a gentiment fourni un outil permettant d'appliquer des préfixes. Nous avons donc choisi de l'utiliser. Auparavant, nous avions même désactivé les primitives supplémentaires, mais maintenant nous pensons qu'il est préférable de les activer avec un préfixe systématique, afin d'éviter que chaque package (ou chaque utilisateur) les active avec des préfixes variés et incohérents (y compris avec un préfixe vide).
-
-4. Le préfixe ©luatex© a été choisi car il est déjà utilisé comme préfixe pour certaines primitives, comme ©\luatexversion©: de cette façon, ces primitives ne se retrouvent pas avec un double préfixe (pour plus de détails, voir ©tex.enableprimitives© dans le manuel \luatex).
-
-5. La primitive ©\directlua© est fournie à la fois avec son nom naturel (permettant une détection facile de \luatex) et une version préfixée ©\luatexdirectlua© (par souci de cohérence avec ©\luatexlatelua©).
-
-6. Remarques diverses:
-
-- L'inconvénient évident d'une telle politique de préfixage est que les noms utilisés par \latex ou l'outil d'écriture de macros génériques ne correspondront pas aux noms utilisés dans le manuel. Nous espérons que cet inconvénient est compensé par le gain en compatibilité ascendante.
-
-- Toutes les primitives traitant des mathématiques Unicode commencent déjà par ©\U©, et correspondront peut-être aux noms des primitives \xetex. les noms des primitives \xetex un jour, donc peut-être que la préfixation n'était ni nécessaire ni souhaitable pour elles. Cependant, nous avons essayé de rendre la règle de préfixage aussi simple que possible, afin de ne pas aggraver le point précédent.
-
-- Peut-être qu'un jour nous penserons qu'il est préférable de fournir toutes les primitives sans préfixe. Si cela se produit, il sera facile d'ajouter les primitives non préfixées dans le format tout en conservant les noms préfixés pour la compatibilité. Ce serait beaucoup plus problématique dans l'autre sens: si l'on réalisait tardivement qu'il vaudrait mieux ne pas fournir de primitives sans préfixe, cela casserait tous les packages spécifiques à \luatex qui auront été écrits.
-%%
-
 
 \para{\cs{jobname}}[jobname]
 Le noyau \latex (et de nombreux packages) utilise des constructions comme
@@ -738,17 +744,15 @@ pour les textes non-ASCII.
 \subsection{Ça marche}\label{working}
 
 \para{Unicode}
-Conventional \latex offers some level of support for UTF-8 in input files.
-However, at a low level, non-ASCII characters are not atomic in this case:
-they consist of several elementary pieces (known as \emph{tokens} to
-\tex{}nicians). Hence, some packages that scan text character by character or
-do other atomic operations on characters (such as changing their catcodes)
-often have problems with UTF-8 in conventional \latex. For example, you can't
-use any non-ASCII character for short verbatim with \pf{fancyvrb}, etc.
-
-\para{Unicode}
-Le \latex conventionnel offre un certain niveau de support pour UTF-8 dans les fichiers d'entrée. Cependant, à bas niveau, les caractères non-ASCII ne sont pas atomiques dans ce cas: ils sont constitués de plusieurs morceaux élémentaires (connus sous le nom de \emph{tokens} par les \tex{}niciens). Par conséquent, certains packages qui analysent le texte caractère par caractère ou effectuent d'autres opérations atomiques sur les caractères (comme la modification de leurs \emph{catcodes}) ont souvent des problèmes avec UTF-8 en \latex conventionnel. Par exemple, vous ne pouvez pas utiliser n'importe quel caractère non-ASCII pour le verbatim court avec \pf{fancyvrb}, etc.
-%%
+Le \latex conventionnel offre un certain niveau de support pour UTF-8 dans
+les fichiers d'entrée. Cependant, à bas niveau, les caractères non-ASCII
+ne sont pas atomiques dans ce cas: ils sont constitués de plusieurs morceaux
+élémentaires (connus sous le nom de \emph{tokens} par les \tex{}niciens).
+Par conséquent, certains packages qui analysent le texte caractère par caractère
+ou effectuent d'autres opérations atomiques sur les caractères (comme la
+modification de leurs \emph{catcodes}) ont souvent des problèmes avec UTF-8
+en \latex conventionnel. Par exemple, vous ne pouvez pas utiliser n'importe
+quel caractère non-ASCII pour du verbatim court avec \pf{fancyvrb}, etc.
 
 La bonne nouvelle est qu'avec \lualatex, certaines des fonctionnalités de ces packages
 commencent à fonctionner sur des caractères Unicode arbitraires sans avoir besoin de
@@ -758,33 +762,25 @@ Voir la section suivante pour plus de détails.
 \subsection{Ça marche partiellement}\label{partial}
 
 \para{microtype}
-Package \pf{microtype} has limited support for \luatex: more precisely, as of
-version 2.5 2013/03/13, protrusion and expansion are available and activated
-by default in PDF mode, but kerning, spacing and tracking are not supported
-(see table~1 in section~3.1 of \file{microtype.pdf}).
-
-\para{microtype}
-Le package \pf{microtype} n'est pas entièrement compatible avec \luatex: plus précisément, à partir de la version 2.5 (2013/03/13), la protrusion et l'expansion sont disponibles et activées par défaut en mode~PDF, mais le crénage, l'espacement et le réglage de l'approche ne sont pas supportés (voir tableau~1 dans la section~3.1 de \file{microtype.pdf}).
+Le package \pf{microtype} n'est pas entièrement compatible avec \luatex:
+plus précisément, à partir de la version~2.5 (2013/03/13), la protrusion
+et l'expansion sont disponibles et activées par défaut en mode~PDF, mais
+le crénage, l'espacement et le réglage de l'approche ne sont pas supportés
+(voir le tableau~1 dans la section~3.1 de \file{microtype.pdf}).
 %%
 
-On the other hand, \pk{luaotfload}, loaded by \pk{fontspec}, supports a lot of
-microtypographic features. So the only problem is the lack of a unified
-interface.
-
-D'un autre côté, \pk{luaotfload}, chargé par \pk{fontspec}, supporte un grand nombre de fonctionnalités microtypographiques. Le seul problème est donc l'absence d'une interface unifiée.
-%%
+D'un autre côté, \pk{luaotfload}, chargé par \pk{fontspec}, supporte un grand
+nombre de fonctionnalités microtypographiques. Le seul problème est donc
+l'absence d'une interface unifiée.
 
 \para{xunicode}
-Package \pf{xunicode}'s main feature is to ensure that the usual control
-sequences for non-ASCII characters (such as ©\'e©) do the right thing in a
-Unicode context. It could \emph{probably} work with \luatex, but explicitly
-checks for \xetex only. However, \pk{fontspec} uses a trick to load it anyway.
-So, you can't load it explicitly, but you don't need to, since \pk{fontspec}
-already took care of it.
-
-\para{xunicode}
-La principale fonctionnalité du package \pf{xunicode} est de s'assurer que les séquences de contrôle habituelles pour les caractères non-ASCII (comme ©\'e©) font ce qu'il faut dans un contexte Unicode. Il pourrait \emph{probablement} fonctionner avec \luatex, mais ne vérifie explicitement que pour \xetex. Cependant, \pk{fontspec} utilise une astuce pour le charger de toutes façons. Donc, vous ne pouvez pas le charger explicitement, mais vous n'en avez pas besoin, puisque \pk{fontspec} s'en est déjà occupé.
-%%
+La principale fonctionnalité du package \pf{xunicode} est de s'assurer que les
+séquences de contrôle habituelles pour les caractères non-ASCII (comme ©\'e©)
+font ce qu'il faut dans un contexte Unicode. Il pourrait \emph{probablement}
+fonctionner avec \luatex, mais ça n'est officiellement vrai que pour \xetex.
+Cependant, \pk{fontspec} utilise une astuce pour le charger de toutes façons.
+Donc, vous ne pouvez pas le charger explicitement, mais vous n'en avez pas besoin,
+puisque \pk{fontspec} s'en est déjà occupé.
 
 \para{encodings}
 As mentioned in the above section, a few things that were problematic with
@@ -827,22 +823,14 @@ Si vous observez une différence majeure entre pdf\latex et \lualatex avec les m
 %%
 
 \para{babel}
-Mostly working mostly without problems for Latin languages. For other
-languages, your mileage may vary. Even for Latin languages, encoding-related
-problems my happen.
-
-\para{babel}
-Fonctionne pour l'essentiel sans problème pour les langues latines. Pour les autres langues, les résultats peuvent varier. Même pour les langues latines, des problèmes liés à l'encodage peuvent survenir.
-%%
+Fonctionne pour l'essentiel sans problème pour les langues latines. Pour les
+autres langues, les résultats peuvent varier. Même pour les langues latines,
+des problèmes liés à l'encodage peuvent survenir.
 
 \para{polyglossia}
-A more modern, but less complete, package for multilingual support,
-\pf{polyglossia}, is also available and should be preffered, though it does
-not support all \pf{babel} features yet.
-
-\para{polyglossia}
-Un package plus moderne, mais moins complet, pour le support multilingue, \pf{polyglossia}, est également disponible et devrait être préféré, bien qu'il ne supporte pas encore toutes les fonctionnalités de \pf{babel}.
-%%
+Un package plus moderne que \pf{babel}, mais moins complet, pour le support
+multilingue, \pf{polyglossia}, est également disponible et devrait être préféré,
+bien qu'il ne supporte pas encore toutes les fonctionnalités de \pf{babel}.
 
 \subsection{Ça ne marche pas (encore)}\label{notworking}
 
