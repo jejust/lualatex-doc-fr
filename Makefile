@@ -19,7 +19,7 @@ world: all ctan
 
 LATEXMK_FMT = -pdf -pdflatex=lualatex
 
-%.pdf: %.tex
+%.pdf: %.tex lltxdoc.cls
 	latexmk -silent $(LATEXMK_FMT) $< >/dev/null
 
 $(README): $(MKD)

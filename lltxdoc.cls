@@ -102,7 +102,7 @@
 \newcommand \Taco {Taco Hoewater\xspace}
 \newcommand \FC   {François Charette\xspace}
 \newcommand \PHG  {Philipp Gesang\xspace}
-\newcommand \AR   {Arthur Reuntenauer\xspace}
+\newcommand \AR   {Arthur Reutenauer\xspace}
 
 \newenvironment{myquote}{%
   \list{}{\leftmargin0pt \rightmargin1em}%
