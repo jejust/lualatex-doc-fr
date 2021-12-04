@@ -1,5 +1,4 @@
-Un guide touristique de LuaLaTeX
-================================
+# Un guide touristique de LuaLaTeX
 
 Ce document est une carte, ou un guide touristique, du nouveau monde de LuaLaTeX.
 Bien que centré sur LuaLaTeX, il inclut également des informations utiles
@@ -13,11 +12,10 @@ adjoint des éléments d'introduction.
 
 Vos commentaires et suggestions d'amélioration sont les bienvenus.
 
-Licence
--------
+## Licence
 
-[Document original](https://ctan.org/pkg/lualatex-doc): Manuel Pégourié-Gonnard <mpg@elzevir.fr>, 2010-2013.
-[Version allemande](https://www.ctan.org/pkg/lualatex-doc-de): Christine Römer, 2013.
-[Version française](https://github.com/jejust/lualatex-doc-fr): Jérémy Just <jeremy@jejust.fr>, 2013.
+- [Document original](https://ctan.org/pkg/lualatex-doc): Manuel Pégourié-Gonnard <mpg@elzevir.fr>, 2010-2013.
+- [Version allemande](https://www.ctan.org/pkg/lualatex-doc-de): Christine Römer, 2013.
+- [Version française](https://github.com/jejust/lualatex-doc-fr): Jérémy Just <jeremy@jejust.fr>, 2013.
 
 Distribué selon les termes de la [_GNU free documentation licence_](http://www.gnu.org/licenses/fdl.html).

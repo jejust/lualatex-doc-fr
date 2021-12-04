@@ -1,5 +1,4 @@
-A guide to LuaLaTeX
-===================
+# A guide to LuaLaTeX
 
 This document is a map, or touristic guide, for the new world of LuaLaTeX.
 Though focusing on LuaLaTeX, it includes relevant information about LuaTeX
@@ -13,11 +12,10 @@ introductory material.
 
 Feedback and suggestions for improvement are most welcome.
 
-License
--------
+## License
 
-[Written by](https://ctan.org/pkg/lualatex-doc): Manuel Pégourié-Gonnard <mpg@elzevir.fr>, 2010-2013.
-[German translation](https://www.ctan.org/pkg/lualatex-doc-de): Christine Römer, 2013.
-[French translation](https://github.com/jejust/lualatex-doc-fr): Jérémy Just <jeremy@jejust.fr>, 2013.
+- [Written by](https://ctan.org/pkg/lualatex-doc): Manuel Pégourié-Gonnard <mpg@elzevir.fr>, 2010-2013.
+- [German translation](https://www.ctan.org/pkg/lualatex-doc-de): Christine Römer, 2013.
+- [French translation](https://github.com/jejust/lualatex-doc-fr): Jérémy Just <jeremy@jejust.fr>, 2013.
 
 Distributed under the terms of the [_GNU free documentation licence_](http://www.gnu.org/licenses/fdl.html).
